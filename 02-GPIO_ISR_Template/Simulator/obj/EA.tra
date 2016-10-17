@@ -1,0 +1,26 @@
+*** Creating Trace Output File '.\Simulator\obj\EA.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\simulator\obj\startup_lpc17xx.o"'
+### List of Objects: adding '".\simulator\obj\system_lpc17xx.o"'
+### List of Objects: adding '".\simulator\obj\ea_test1.o"'
+### List of Objects: adding '".\simulator\obj\tastenleds.o"'
+### List of Objects: adding '".\simulator\obj\alarm.o"'
+### List of Objects: adding '".\simulator\obj\possensor.o"'
+### List of Objects: adding '".\Library\max_II_configurator.lib"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 ".\simulator\obj\startup_lpc17xx.o" ".\simulator\obj\system_lpc17xx.o" ".\simulator\obj\ea_test1.o" ".\simulator\obj\tastenleds.o" ".\simulator\obj\alarm.o" ".\simulator\obj\possensor.o" D:\uni\Embedded_Systems_ARM\LPC17_Keil\Praktikum\01-EA\Library\max_II_configurator.lib 
+--strict --scatter ".\Simulator\obj\EA.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\Simulator\lst\EA.map" -o .\Simulator\obj\EA.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\Simulator\obj\EA.axf'
+### ADS-LD Command File: '.\Simulator\obj\EA.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\Simulator\obj\EA.lnp', Handle=0x000006FC
+### Writing '.lnp' file
+### ADS-LD Command file '.\Simulator\obj\EA.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

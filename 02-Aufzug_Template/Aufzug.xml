@@ -1,0 +1,88 @@
+<setting name="LED_GE_Port" value="PORT1">
+<setting name="LED_GE_Pin" value=" 18 ">
+<setting name="LED_GE_LowActive" value=" 0 ">
+<setting name="LED_G1_Port" value="PORT1">
+<setting name="LED_G1_Pin" value=" 19 ">
+<setting name="LED_G1_LowActive" value=" 0 ">
+<setting name="LED_G2_Port" value="PORT1">
+<setting name="LED_G2_Pin" value=" 20 ">
+<setting name="LED_G2_LowActive" value=" 0 ">
+<setting name="LED_G3_Port" value="PORT1">
+<setting name="LED_G3_Pin" value=" 21 ">
+<setting name="LED_G3_LowActive" value=" 0 ">
+<setting name="LED_KE_Port" value="PORT1">
+<setting name="LED_KE_Pin" value=" 22 ">
+<setting name="LED_KE_LowActive" value=" 0 ">
+<setting name="LED_K1_Port" value="PORT1">
+<setting name="LED_K1_Pin" value=" 23 ">
+<setting name="LED_K1_LowActive" value=" 0 ">
+<setting name="LED_K2_Port" value="PORT1">
+<setting name="LED_K2_Pin" value=" 24 ">
+<setting name="LED_K2_LowActive" value=" 0 ">
+<setting name="LED_K3_Port" value="PORT1">
+<setting name="LED_K3_Pin" value=" 25 ">
+<setting name="LED_K3_LowActive" value=" 0 ">
+<setting name="Taste_GE_Port" value="PORT0">
+<setting name="Taste_GE_Pin" value=" 19 ">
+<setting name="Taste_GE_LowActive" value=" 0 ">
+<setting name="Taste_G1_Port" value="PORT0">
+<setting name="Taste_G1_Pin" value=" 20 ">
+<setting name="Taste_G1_LowActive" value=" 0 ">
+<setting name="Taste_G2_Port" value="PORT0">
+<setting name="Taste_G2_Pin" value=" 21 ">
+<setting name="Taste_G2_LowActive" value=" 0 ">
+<setting name="Taste_G3_Port" value="PORT0">
+<setting name="Taste_G3_Pin" value=" 22 ">
+<setting name="Taste_G3_LowActive" value=" 0 ">
+<setting name="Taste_KE_Port" value="PORT0">
+<setting name="Taste_KE_Pin" value=" 24 ">
+<setting name="Taste_KE_LowActive" value=" 0 ">
+<setting name="Taste_K1_Port" value="PORT0">
+<setting name="Taste_K1_Pin" value=" 25 ">
+<setting name="Taste_K1_LowActive" value=" 0 ">
+<setting name="Taste_K2_Port" value="PORT0">
+<setting name="Taste_K2_Pin" value=" 26 ">
+<setting name="Taste_K2_LowActive" value=" 0 ">
+<setting name="Taste_K3_Port" value="PORT0">
+<setting name="Taste_K3_Pin" value=" 27 ">
+<setting name="Taste_K3_LowActive" value=" 0 ">
+<setting name="Taste_Alarm_Port" value="PORT0">
+<setting name="Taste_Alarm_Pin" value=" 28 ">
+<setting name="Taste_Alarm_LowActive" value=" 0 ">
+<setting name="Schalter_Nothalt_Port" value="PORT0">
+<setting name="Schalter_Nothalt_Pin" value=" 23 ">
+<setting name="Schalter_Nothalt_LowActive" value=" 0 ">
+<setting name="Sensor_U_Port" value="PORT0">
+<setting name="Sensor_U_Pin" value=" 1 ">
+<setting name="Sensor_U_LowActive" value=" 0 ">
+<setting name="Sensor_1_Port" value="PORT0">
+<setting name="Sensor_1_Pin" value=" 2 ">
+<setting name="Sensor_1_LowActive" value=" 0 ">
+<setting name="Sensor_2_Port" value="PORT0">
+<setting name="Sensor_2_Pin" value=" 3 ">
+<setting name="Sensor_2_LowActive" value=" 0 ">
+<setting name="Sensor_3_Port" value="PORT0">
+<setting name="Sensor_3_Pin" value=" 4 ">
+<setting name="Sensor_3_LowActive" value=" 0 ">
+<setting name="Sensor_O_Port" value="PORT0">
+<setting name="Sensor_O_Pin" value=" 5 ">
+<setting name="Sensor_O_LowActive" value=" 0 ">
+<setting name="7SegSerIn" value="SPI_OUT">
+<setting name="7SegLowActive" value=" 1 ">
+<setting name="Motor_1_Port" value="PORT2">
+<setting name="Motor_1_Pin" value=" 0 ">
+<setting name="Motor_1_LowActive" value=" 0 ">
+<setting name="Motor_2_Port" value="PORT2">
+<setting name="Motor_2_Pin" value=" 1 ">
+<setting name="Motor_2_LowActive" value=" 0 ">
+<setting name="Motor_3_Port" value="PORT2">
+<setting name="Motor_3_Pin" value=" 2 ">
+<setting name="Motor_3_LowActive" value=" 0 ">
+<setting name="Motor_4_Port" value="PORT2">
+<setting name="Motor_4_Pin" value=" 3 ">
+<setting name="Motor_4_LowActive" value=" 0 ">
+<setting name="Türservo_Port" value="PORT3">
+<setting name="Türservo_Pin" value=" 26 ">
+<setting name="Alarmsummer_Port" value="PORT2">
+<setting name="Alarmsummer_Pin" value=" 4 ">
+<setting name="Alarmsummer_LowActive" value=" 1 ">
