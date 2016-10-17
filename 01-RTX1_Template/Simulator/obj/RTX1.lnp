@@ -1,6 +1,5 @@
 --cpu Cortex-M3
-".\simulator\obj\rtxmainmessagequeue.o"
-".\simulator\obj\myirqhandlermessagequeue.o"
+".\simulator\obj\rtxmainusertimsig.o"
 "D:\[Programme]\Keil\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
 ".\simulator\obj\rtx_conf_cm.o"
 ".\simulator\obj\retarget_io.o"

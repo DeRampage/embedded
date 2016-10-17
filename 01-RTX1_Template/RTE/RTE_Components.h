@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'RTX1' 
- * Target:  'Sim - Message Queue' 
+ * Target:  'Sim - User Timer Signal' 
  */
 
 #ifndef RTE_COMPONENTS_H

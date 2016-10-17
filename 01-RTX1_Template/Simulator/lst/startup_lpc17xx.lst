@@ -422,17 +422,16 @@ ARM Macro Assembler    Page 7
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\simulator\obj\startup_lpc17xx.d -o.\simulator\obj\startup_lpc17x
-x.o -ID:\[Dropbox]\Dropbox\PraktikumVorlage\01-RTX1_Template\RTE -ID:\[Dropbox]
-\Dropbox\PraktikumVorlage\01-RTX1_Template\RTE\Device\LPC1769 -ID:\[Programme]\
-Keil\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\Include -ID:\[Programme]\Keil\ARM\PA
-CK\ARM\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\INC -ID:\[Programme]\Keil\ARM\PACK\ETT
-I4\Embedded\1.5.3\EmbRTX\includes -ID:\[Programme]\Keil\ARM\PACK\ETTI4\Embedded
-\1.5.3\config\includes -ID:\[Programme]\Keil\ARM\PACK\ETTI4\Embedded\1.5.3\disp
-\includes -ID:\[Programme]\Keil\ARM\PACK\Keil\LPC1700_DFP\2.2.0\Device\Include 
---predefine="__RTX SETA 1" --predefine="__EVAL SETA 1" --predefine="__MICROLIB 
-SETA 1" --predefine="__UVISION_VERSION SETA 521" --predefine="_RTE_ SETA 1" --p
-redefine="LPC175x_6x SETA 1" --list=.\simulator\lst\startup_lpc17xx.lst RTE\Dev
-ice\LPC1769\startup_LPC17xx.s
+x.o -ID:\[Gitbhub]\embedded\01-RTX1_Template\RTE -ID:\[Gitbhub]\embedded\01-RTX
+1_Template\RTE\Device\LPC1769 -ID:\[Programme]\Keil\ARM\PACK\ARM\CMSIS\5.0.0-Be
+ta12\CMSIS\Include -ID:\[Programme]\Keil\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\
+RTOS\RTX\INC -ID:\[Programme]\Keil\ARM\PACK\ETTI4\Embedded\1.5.3\EmbRTX\include
+s -ID:\[Programme]\Keil\ARM\PACK\ETTI4\Embedded\1.5.3\config\includes -ID:\[Pro
+gramme]\Keil\ARM\PACK\ETTI4\Embedded\1.5.3\disp\includes -ID:\[Programme]\Keil\
+ARM\PACK\Keil\LPC1700_DFP\2.2.0\Device\Include --predefine="__RTX SETA 1" --pre
+define="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_V
+ERSION SETA 521" --predefine="_RTE_ SETA 1" --predefine="LPC175x_6x SETA 1" --l
+ist=.\simulator\lst\startup_lpc17xx.lst RTE\Device\LPC1769\startup_LPC17xx.s
 
 
 

@@ -5,4 +5,4 @@
 .\simulator\obj\retarget_io.o: D:\[Programme]\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\simulator\obj\retarget_io.o: D:\[Programme]\Keil\ARM\ARMCC\Bin\..\include\assert.h
 .\simulator\obj\retarget_io.o: D:\[Programme]\Keil\ARM\ARMCC\Bin\..\include\rt_sys.h
-.\simulator\obj\retarget_io.o: D:\[Dropbox]\Dropbox\PraktikumVorlage\01-RTX1_Template\RTE\RTE_Components.h
+.\simulator\obj\retarget_io.o: D:\[Gitbhub]\embedded\01-RTX1_Template\RTE\RTE_Components.h
