@@ -21,16 +21,18 @@
   ******************************************************************************
   */
 
-#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 
-#define SIG_MAIN_SW1 0x0001
-#define SIG_MAIN_SW2 0x0002
-
-extern osThreadId mainThread_ID; 
 /**
   * @brief  Callback functionfor key 1
   * @details The Callback sets a signal for thread main
   */
+	
+#include "cmsis_os.h"
+
+#define SIG_MAIN_SW1 0x0001
+#define SIG_MAIN_SW2 0x0002
+
+extern osThreadId mainThread_ID;
 	
 void key1Callback(void)
 {
@@ -41,7 +43,6 @@ void key1Callback(void)
   * @brief  Callback functionfor key 2
   * @details The Callback sets a signal for thread main
   */
-
 void key2Callback(void)
 {
 	osSignalSet(mainThread_ID, SIG_MAIN_SW2);

@@ -22,31 +22,31 @@
   */
 
 
-#include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
-#include "cmsis_os.h"
-
-#include "stdio.h"
-
-extern osMessageQId myMessage;
 /**
   * @brief  Callback function for key 1 (message queue)
   * @details The Callback function transfers the content of the DIP-switch 
   *          in the message queue
   */
+
+
+#include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "stdio.h"
+
+extern osMessageQId myMessage; 
+
+	
+
 void key1Callback(void)
 {
- 
-  myMsgQ_t msg;
-				
+
+	myMsgQ_t msg;
+	
 	msg.content.value = getDIP();
-  msg.content.SW = 1;
+	msg.content.SW = 1;
 	
-	
-	osMessagePut(myMessage, msg.msgQMsg, 0); 
-	
+	osMessagePut(myMessage, msg.msgQMsg, 0);
 }
-
-
 
 
 /**
@@ -54,19 +54,13 @@ void key1Callback(void)
   * @details The Callback function transfers the content of the Hex-switch 
   *          in the message queue
   */
-
-
-
 void key2Callback(void)
 {
- 
- myMsgQ_t msg;
+
+	myMsgQ_t msg;
 	
+	msg.content.value = getHex();
+	msg.content.SW = 2;
 	
- msg.content.value = getHex();
- msg.content.SW = 2;
-		
-	osMessagePut(myMessage, msg.msgQMsg, 0); //msgQMsg ist die Struktur mit value und SW
+	osMessagePut(myMessage, msg.msgQMsg, 0);
 }
-
-

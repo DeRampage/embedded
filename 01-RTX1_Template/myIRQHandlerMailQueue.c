@@ -22,60 +22,40 @@
   */
 
 #include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
-#include "cmsis_os.h"
-
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 #include "stdio.h"
 
 extern osMailQId myMail;
+
 /**
-  * @brief  Callback function for key 1 (message queue)
-  * @details The Callback function transfers the content of the DIP-switch 
-  *          in the message queue
-  */
+  * @brief  Callback function for key 1 (mail queue)
+  * @details The Callback function transfers the content of the 
+  *          DIP-switch in the mail queue
+  */  
 void key1Callback(void)
 {
- 
-  
-  myMailQ_t *mailptr;	
-	
+	myMailQ_t *mailptr;
 	mailptr = osMailAlloc(myMail, 0);
- 
-	if(mailptr){	
-			mailptr->value = getDIP();
-			mailptr->SW = 1;
-	}
-	printf("Value DIP: %d\n", mailptr->value);
-	
+	if(mailptr){
+	mailptr->value = getDIP();
+	mailptr->SW = 1;
 	osMailPut(myMail, mailptr);
-	
-	printf("Mail gesendet\n");
+	}
 }
-
-
 
 
 /**
-  * @brief  Callback function for key 2 (message queue)
-  * @details The Callback function transfers the content of the Hex-switch 
-  *          in the message queue
+  * @brief  Callback function for key 2 (mail queue)
+  * @details The Callback function transfers the content of the 
+  *          Hex-switch in the mail queue
   */
-
-
-
 void key2Callback(void)
 {
- 
- myMailQ_t *mailptr;
-	
+	myMailQ_t *mailptr;
 	mailptr = osMailAlloc(myMail, 0);
 	if(mailptr){
-    mailptr->value = getHex();
-    mailptr->SW = 2;
-	}
-		printf("Value HEX: %d\n", mailptr->value);
-	
+	mailptr->value = getHex();
+	mailptr->SW = 2;
 	osMailPut(myMail, mailptr);
-	
-	printf("Mail gesendet\n");
+	}
 }
-

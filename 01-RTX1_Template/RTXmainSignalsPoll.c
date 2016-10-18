@@ -22,105 +22,121 @@
   */
 
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
-#include "cmsis_os.h"
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 #include "stdio.h"
 #include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
 #include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
 
+
 #define SIG_MAIN_SW1 0x0001
 #define SIG_MAIN_SW2 0x0002
 
-osThreadId mainThread_ID; 
+osThreadId mainThread_ID;
 
-	ETTI4disp_t myDisplay = {
-	.DispType = USE_TERATERM_UART0,
-	.NrLines = 40,
-	.NrCols = 40,
+ETTI4disp_t myDisplay = {
+		.DispType = USE_TERATERM_UART3_C, 
+		.NrLines = 40, 
+		.NrCols = 40,
 };
-	
-void pollSW1(void const *argrument);
+
+
+void pollSW1(void const * argument);
 osThreadDef(pollSW1, osPriorityNormal, 1, NULL);
 
-void pollSW2(void const *argrument);
+void pollSW2(void const * argument);
 osThreadDef(pollSW2, osPriorityNormal, 1, NULL);
 
 
 
+/**
+  * @brief  Polling thread for key 1
+  * @param argument : not used
+  */
 void pollSW1(void const * argument)
 {
-	 uint32_t pushsw1; 
+
+	uint32_t pushsw1;
+	uint32_t sw1;
 	
    for(;;)
    {
-		  if(getSW1() == 0){
-				pushsw1 = 0;
-			}
-			 
-			if(pushsw1 == 0 && getSW1() == 1){
-			  osSignalSet(mainThread_ID, SIG_MAIN_SW1);
-			  pushsw1 = getSW1();
-			}
+		sw1 = getSW1();
+		 
+		if(sw1 == 0){
+			pushsw1 = 0;
+		}
+		if(pushsw1 == 0 && sw1 == 1){
+			osSignalSet(mainThread_ID, SIG_MAIN_SW1);
+			pushsw1 = sw1;
+		}
 		
 		osDelay(20);
 		
-	 }
+   }
 }
 
+/**
+  * @brief  Polling thread for key 2
+  * @param argument : not used
+  */
 
 
 void pollSW2(void const * argument)
 {
-	uint32_t pushsw2;
+  uint32_t pushsw2;
+	uint32_t sw2;
+	
    for(;;)
    {
-		 if(getSW2() == 1){
-			 pushsw2 = 1;
-		 }
-		 if(pushsw2 == 1 && getSW2() == 0){
-			osSignalSet(mainThread_ID, SIG_MAIN_SW2);
-			pushsw2 = getSW2(); 
+		sw2 = getSW2();
+		if(sw2 == 1){
+			pushsw2 = 1;
 		}
-		 
+		if(pushsw2 == 1 && sw2 == 0){
+			osSignalSet(mainThread_ID, SIG_MAIN_SW2);
+			pushsw2 = sw2;
+		}
+		
 		osDelay(20);
+		
    }
 }
 
 
-
+/**
+  * @brief  main thread
+  * @details Config signal router and start of RTOS
+  */
 int32_t main(void)
 {
  
-	
    e4configRTX1(); 
-	 initETTI4display (&myDisplay); 
-	 clearETTI4display(&myDisplay);
-	 puts("Start of Signal Poll Program");
-	
-	
-	osEvent signal;
-	
-	mainThread_ID = osThreadGetId(); 
-	
-	osThreadCreate(osThread(pollSW1), NULL);
-	osThreadCreate(osThread(pollSW2), NULL); 
 
+		initETTI4display(&myDisplay);
+		clearETTI4display(&myDisplay);
 	
-	
+		puts("Start of Signal Poll Program");
+		
+		osEvent signal;
+		mainThread_ID = osThreadGetId();
+		osThreadCreate(osThread(pollSW1), NULL);
+	  osThreadCreate(osThread(pollSW2), NULL);
+		
    for(;;)
    {
-		 signal = osSignalWait(0, 2000);
-		 //signal = osSignalWait(SIG_MAIN_SW1 | SIG_MAIN_SW2, 1000);
+		// signal = osSignalWait(0, 2000);
+		 signal = osSignalWait(SIG_MAIN_SW1 | SIG_MAIN_SW2, 2000);
 		 if(signal.status == osEventSignal){
-		 
-				if(signal.value.signals & SIG_MAIN_SW1){
-					puts("New SW1 Signal");
-				}
-				if(signal.value.signals & SIG_MAIN_SW2){
-					puts("New SW2 Signal");
-				}
-		 }else{
-				puts("Timeout 2 seconds");
-			}
+			 if(signal.value.signals & SIG_MAIN_SW1){
+				 puts("New SW1 Signal");
+			 }
+			 if(signal.value.signals & SIG_MAIN_SW2){
+				 puts("New SW2 Signal");
+			 }
 			 
+		 }else{
+			 puts("Timeout 2 seconds");
+		 }
+		 
    }
 }

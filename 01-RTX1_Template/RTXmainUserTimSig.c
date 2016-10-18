@@ -15,27 +15,23 @@
   ******************************************************************************
   */
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
-#include "cmsis_os.h"
-#include "myHW.h"
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "myHW.h"  
 #include "mySignals.h"                  // ETTI4::ETTI4:Embedded laboratory:RTX
 
-/*Konstanten für die Zeit*/
-#define LEDW1 150
-#define LEDW2 100
-
-/*Globale Variablen für den Zustand*/
-uint32_t SIG_VAR1=0;
-uint32_t SIG_VAR2=0;
+#define LEDW1 750
+#define LEDW2	500
 
 osThreadId mainID;
+
 void led1Callback(void const * arg);
 void led2Callback(void const * arg);
+	
+osTimerDef(led1Timer, led1Callback);
+osTimerId led1Timer;
 
-osTimerDef (myPeriodTimer1, led1Callback);
-osTimerId myPeriodTimer1;
-
-osTimerDef (myPeriodTimer2, led2Callback);
-osTimerId myPeriodTimer2;
+osTimerDef(led2Timer, led2Callback);
+osTimerId led2Timer;
 
 /**
   * @brief Callback function of led1 user timer
@@ -43,7 +39,7 @@ osTimerId myPeriodTimer2;
   */
 void led1Callback(void const * arg)
 {
-	osSignalSet(mainID,SIG_MAIN_LED1);
+	osSignalSet(mainID, SIG_MAIN_LED1);
 }
 
 /**
@@ -52,7 +48,7 @@ void led1Callback(void const * arg)
   */
 void led2Callback(void const * arg)
 {
-	osSignalSet(mainID,SIG_MAIN_LED2);
+	osSignalSet(mainID, SIG_MAIN_LED2);
 }
 
 
@@ -64,44 +60,45 @@ int32_t main(void)
 {
   
    e4configRTX1();
-   initHW();
-	 
-	 osEvent event;
-	 mainID = osThreadGetId();
 	
-	 myPeriodTimer1 = osTimerCreate(osTimer(myPeriodTimer1), osTimerPeriodic, NULL);
-	 myPeriodTimer2 = osTimerCreate(osTimer(myPeriodTimer2), osTimerPeriodic, NULL);
+	initHW();
 	
-	 osTimerStart(myPeriodTimer1, LEDW1);
-	 osTimerStart(myPeriodTimer2, LEDW2);
+	osEvent event;
+	mainID = osThreadGetId();
+	
+	static uint32_t SIG_VAR1 = 0;
+	static uint32_t SIG_VAR2 = 0;
+	
+	led1Timer = osTimerCreate(osTimer(led1Timer), osTimerPeriodic, NULL);
+	led2Timer = osTimerCreate(osTimer(led2Timer), osTimerPeriodic, NULL);
+  
+	osTimerStart(led1Timer, LEDW1); 
+	osTimerStart(led2Timer, LEDW2); 
+	
+	
    for(;;)
    {
-		 event=osSignalWait(NULL, osWaitForever);
-		 if(event.value.signals & SIG_MAIN_LED1)
-		 {
-			 if(SIG_VAR1==0)
-			 {
-				setLED1(1);
-				SIG_VAR1=1;
+		 event = osSignalWait(0, osWaitForever);
+		 
+		 if(event.value.signals & SIG_MAIN_LED1){
+			 if(SIG_VAR1 == 0){
+				 setLED1(1);
+				 SIG_VAR1 = 1;
+			 }else{
+				 setLED1(0);
+				 SIG_VAR1 = 0;
 			 }
-			 else
-			 {
-				setLED1(0);
-				SIG_VAR1=0;
-			 }
+			 			 
 		 }
-		 else
-		 {
-			 if(SIG_VAR2==0)
-			 {
-				setLED2(1);
-				SIG_VAR2=1;
+		 if(event.value.signals & SIG_MAIN_LED2){
+			 
+			 if(SIG_VAR2 == 0){
+				 setLED2(1);
+				 SIG_VAR2 = 1;
+			 }else{
+				 setLED2(0);
+				 SIG_VAR2 = 0;
 			 }
-			 else
-			 {
-				setLED2(0);
-				SIG_VAR2=0;
-			 }
-		 }
+		 } 
    }
 }

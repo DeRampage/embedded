@@ -21,18 +21,17 @@
   ******************************************************************************
   */
 
-
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 #include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
-#include "stdio.h"
-#include "cmsis_os.h"
-#include "myHW.h"
+#include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
 #include "LPC17xx.h"                    // Device header
-								
-	ETTI4disp_t myDisplay = {
-	.DispType = USE_TERATERM_UART0,
-	.NrLines = 40,
-	.NrCols = 40,
+#include "stdio.h"
+
+ETTI4disp_t myDisplay = {
+		.DispType = USE_TERATERM_UART3_C, 
+		.NrLines = 40, 
+		.NrCols = 40,
 };
 
 #define NUMBER 25
@@ -41,56 +40,50 @@ osMailQDef(myMail, NUMBER, myMailQ_t);
 osMailQId myMail;
 
 
+
 /**
-  * @brief  main thread
-  * @details Config signal router and output thread for PC-terminal
+  * @brief  main-function
+  * @details Config signal router and start of RTOS
   */
 int32_t main(void)
 {
-  
    e4configRTX1();
+
+	initHW();
+	initSW_IRQ();
 	
-	 initETTI4display (&myDisplay); 
-	 clearETTI4display(&myDisplay);
-	 printf("Start of Mail Queue Program\n");
-	
-	 initSW_IRQ();
-	 initHW();
-	 osEvent event;
-	 myMailQ_t *mailptr; 	 
-	
-	 myMail = osMailCreate(osMailQ(myMail), NULL);
+	initETTI4display(&myDisplay);
+	clearETTI4display(&myDisplay);
+	printf("Start of Mail Program\n");
 	
 	
+	osEvent event;
+	myMailQ_t *mailptr;
+	
+	myMail = osMailCreate(osMailQ(myMail), NULL);
+		
    for(;;)
    {
-		 printf("==============\n");
+
+		 event = osMailGet(myMail, 2000);
 		 
-		 
-		 event = osMailGet(myMail, 100);
-		 
-			if(event.status == osEventMail){
-				
-				printf("Mail arrived\n");
-		 
-				mailptr = event.value.p;		//Enthält den Zeiger zur Nachricht ?? Zur Struktur???
-					
-				printf("Switch: %d\n", mailptr->SW);
-				printf("Value: %d\n", mailptr->value);
-				
+		 if(event.status == osEventMail){
 			 
-		 
-				if(mailptr->SW == 1){
-					printf("SW1  (DIP) -> 0x%02X \n", mailptr->value);
-				}
-				if(mailptr->SW == 2){
-					printf("SW2  (HEX) -> 0x%02X \n", mailptr->value);
-				}
-				osMailFree(myMail, mailptr);
-
-			}else{
-				printf("Timeout\n");
-			}
-
+			 mailptr = event.value.p;
+			 
+			 if(mailptr->SW == 1){
+				 printf("SW1 (DIP) -> 0x%02X \n", mailptr->value);
+			 }
+			 
+			 if(mailptr->SW == 2){
+				 printf("SW2 (HEX) -> 0x%02X \n", mailptr->value);
+			 }
+			 
+			 osMailFree(myMail, mailptr);
+			 
+		 }else{
+			 printf("Timeout 2 seconds\n");
+		 }		 
    }
 }
+

@@ -22,57 +22,59 @@
   */
 
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
-#include "cmsis_os.h"
-#include "stdio.h"
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 #include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
 #include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
 #include "LPC17xx.h"                    // Device header
-
+#include "stdio.h"
 
 #define SIG_MAIN_SW1 0x0001
 #define SIG_MAIN_SW2 0x0002
 
-osThreadId mainThread_ID; 
+osThreadId mainThread_ID;
 
-	ETTI4disp_t myDisplay = {
-	.DispType = USE_TERATERM_UART0,
-	.NrLines = 40,
-	.NrCols = 40,
+ETTI4disp_t myDisplay = {
+		.DispType = USE_TERATERM_UART3_C, 
+		.NrLines = 40, 
+		.NrCols = 40,
 };
-	
 
+
+
+
+/**
+  * @brief  main-function
+  * @details Config signal router and start of RTOS
+  */
 int32_t main(void)
-{
- 
+{ 
+   e4configRTX1();
+  
+		initETTI4display(&myDisplay);
+		clearETTI4display(&myDisplay);
 	
-   e4configRTX1(); 
-	 initETTI4display (&myDisplay); 
-	 clearETTI4display(&myDisplay);
-	 puts("Start of Signal IRQ-Program");
-	
-	 initSW_IRQ();
-	//__enable_irq();
+		puts("Start of Signal IRQ Program");
+		initHW();
+		initSW_IRQ();
 	
 	osEvent signal;
 	
-	mainThread_ID = osThreadGetId(); 
-
+	mainThread_ID = osThreadGetId();
 	
-   for(;;)
+	 for(;;)
    {
-		 signal = osSignalWait(0, 1000);
-		 //osThreadSetPriority(mainThread_ID, osPriorityAboveNormal);
+		 signal = osSignalWait(0, 2000);
+		// signal = osSignalWait(SIG_MAIN_SW1 | SIG_MAIN_SW2, 2000);
 		 if(signal.status == osEventSignal){
-		 
-				if(signal.value.signals & SIG_MAIN_SW1){
-					puts("New SW1 Signal");
-				}
-				if(signal.value.signals & SIG_MAIN_SW2){
-					puts("New SW2 Signal");
-				}
-		 }else{
-				puts("Timeout 2 seconds");
-			}
+			 if(signal.value.signals & SIG_MAIN_SW1){
+				 puts("New SW1 Signal");
+			 }
+			 if(signal.value.signals & SIG_MAIN_SW2){
+				 puts("New SW2 Signal");
+			 }
 			 
+		 }else{
+			 puts("Timeout 2 seconds");
+		 }
    }
 }

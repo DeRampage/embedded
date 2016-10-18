@@ -23,8 +23,7 @@
 
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
 #include "cmsis_os.h"
-#include "myHW.h"                       // ETTI4::ETTI4:Embedded laboratory:RTX
-
+#include "myHW.h"
 
 void ledblink2(void const *argument);
 osThreadDef(ledblink2, osPriorityNormal, 1, 0);
@@ -39,10 +38,10 @@ void ledblink2(void const * argument)
 
    for(;;)
    {
-		setLED2(1);
-		osDelay(750);
-		setLED2(0);
-		osDelay(750);
+		 setLED2(1);
+		 osDelay(750);
+		 setLED2(0);
+		 osDelay(750);
    }
 }
 
@@ -54,16 +53,17 @@ void ledblink2(void const * argument)
 int32_t main(void)
 {
    e4configRTX1();
-   initHW();
-	 
+	 initHW();
+		
 	 osThreadCreate(osThread(ledblink2), NULL);
-  
+	
+	
    for(;;)
    {
-		setLED1(1);
-		osDelay(500);
-		setLED1(0);
-		osDelay(500);
-		 
+		
+		 setLED1(1);
+		 osDelay(500);
+		 setLED1(0);
+		 osDelay(500);
    }
 }

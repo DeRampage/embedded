@@ -22,39 +22,35 @@
   */
 
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
-#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
-
+#include "cmsis_os.h"
 #include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
 #include "stdio.h"
 
 
-
-/**
-  * @brief  Thread - send thread
-  * @param argument : not used
-  */
-	
-void sendThread(void const *argument);
-osThreadDef(sendThread, osPriorityNormal, 1, NULL);
+void sendThread(void const * argument);
+osThreadDef (sendThread, osPriorityNormal, 1, NULL);
 
 osSemaphoreId display;
 osSemaphoreDef(display);
 
 
 ETTI4disp_t myDisplay = {
-	.DispType = USE_TERATERM_UART0,
-	.NrLines = 40,
-	.NrCols = 40,
+		.DispType = USE_TERATERM_UART3_C, 
+		.NrLines = 40, 
+		.NrCols = 40,
 };
 
-	
+/**
+  * @brief  Thread - send thread
+  * @param argument : not used
+  */
 void sendThread(void const * argument)
 {
    for(;;)
    {
-		osSemaphoreWait(display, osWaitForever); 
-		puts("Message from send Thread");
-		osSemaphoreRelease(display);
+		 osSemaphoreWait(display, osWaitForever);
+		 puts("Message from send Thead");
+		 osSemaphoreRelease(display);
    }
 }
 
@@ -66,23 +62,20 @@ void sendThread(void const * argument)
 int32_t main(void)
 {
    e4configRTX1();
-	 
-   initETTI4display (&myDisplay); 
-
-	 
+		
+	initETTI4display(&myDisplay);
 	
-	 display = osSemaphoreCreate(osSemaphore(display), 1);
-	 osThreadCreate(osThread(sendThread), NULL);
+	display = osSemaphoreCreate(osSemaphore(display), 1);
+	
+	osThreadCreate(osThread(sendThread), NULL);
 	
    for(;;)
    {
-		osSemaphoreWait(display, osWaitForever); 
-		puts("Hello from main Tread");
-		osSemaphoreRelease(display); 
+		 osSemaphoreWait(display, osWaitForever);
+		 puts("Hello from Main-Thread");
+		 osSemaphoreRelease(display);
    }
 }
-
-
 
 //CODE OHNE SEMAPHORE
 /*
@@ -103,9 +96,9 @@ osThreadDef(sendThread, osPriorityNormal, 1, NULL);
 
 
 ETTI4disp_t myDisplay = {
-	.DispType = USE_TERATERM_UART0,
-	.NrLines = 25,
-	.NrCols = 80,
+		.DispType = USE_TERATERM_UART3_C, 
+		.NrLines = 40, 
+		.NrCols = 40,
 };
 
 	
@@ -132,4 +125,4 @@ int32_t main(void)
 		puts("Hello from main Tread");
    }
 }
-*/
+*/ 
