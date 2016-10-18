@@ -28,13 +28,11 @@
 #include "cmsis_os.h"
 #include "myHW.h"
 #include "LPC17xx.h"                    // Device header
-
-
 								
 	ETTI4disp_t myDisplay = {
 	.DispType = USE_TERATERM_UART0,
-	.NrLines = 25,
-	.NrCols = 80,
+	.NrLines = 40,
+	.NrCols = 40,
 };
 
 #define NUMBER 25
@@ -75,9 +73,7 @@ int32_t main(void)
 				
 				printf("Mail arrived\n");
 		 
-		 
 				mailptr = event.value.p;		//Enthält den Zeiger zur Nachricht ?? Zur Struktur???
-		 
 					
 				printf("Switch: %d\n", mailptr->SW);
 				printf("Value: %d\n", mailptr->value);
@@ -86,12 +82,12 @@ int32_t main(void)
 		 
 				if(mailptr->SW == 1){
 					printf("SW1  (DIP) -> 0x%02X \n", mailptr->value);
-					osMailFree(myMail, mailptr);
 				}
 				if(mailptr->SW == 2){
 					printf("SW2  (HEX) -> 0x%02X \n", mailptr->value);
-					osMailFree(myMail, mailptr);
 				}
+				osMailFree(myMail, mailptr);
+
 			}else{
 				printf("Timeout\n");
 			}

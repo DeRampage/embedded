@@ -34,8 +34,8 @@ osThreadId mainThread_ID;
 
 	ETTI4disp_t myDisplay = {
 	.DispType = USE_TERATERM_UART0,
-	.NrLines = 25,
-	.NrCols = 80,
+	.NrLines = 40,
+	.NrCols = 40,
 };
 	
 void pollSW1(void const *argrument);
@@ -103,14 +103,12 @@ int32_t main(void)
 	
 	osThreadCreate(osThread(pollSW1), NULL);
 	osThreadCreate(osThread(pollSW2), NULL); 
-	
-//	uint32_t a = getSW1();
-//	uint32_t b = getSW2(); 
+
 	
 	
    for(;;)
    {
-		 signal = osSignalWait(0, 1000);
+		 signal = osSignalWait(0, 2000);
 		 //signal = osSignalWait(SIG_MAIN_SW1 | SIG_MAIN_SW2, 1000);
 		 if(signal.status == osEventSignal){
 		 

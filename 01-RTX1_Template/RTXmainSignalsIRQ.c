@@ -36,8 +36,8 @@ osThreadId mainThread_ID;
 
 	ETTI4disp_t myDisplay = {
 	.DispType = USE_TERATERM_UART0,
-	.NrLines = 25,
-	.NrCols = 80,
+	.NrLines = 40,
+	.NrCols = 40,
 };
 	
 

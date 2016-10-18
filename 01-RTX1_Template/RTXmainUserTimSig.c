@@ -15,8 +15,6 @@
   ******************************************************************************
   */
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
-#include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
-#include "stdio.h"
 #include "cmsis_os.h"
 #include "myHW.h"
 #include "mySignals.h"                  // ETTI4::ETTI4:Embedded laboratory:RTX
@@ -45,7 +43,7 @@ osTimerId myPeriodTimer2;
   */
 void led1Callback(void const * arg)
 {
-osSignalSet(mainID,SIG_MAIN_LED1);
+	osSignalSet(mainID,SIG_MAIN_LED1);
 }
 
 /**
@@ -54,7 +52,7 @@ osSignalSet(mainID,SIG_MAIN_LED1);
   */
 void led2Callback(void const * arg)
 {
-osSignalSet(mainID,SIG_MAIN_LED2);
+	osSignalSet(mainID,SIG_MAIN_LED2);
 }
 
 

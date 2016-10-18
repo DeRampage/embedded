@@ -40,12 +40,10 @@ void key1Callback(void)
 	
 	mailptr = osMailAlloc(myMail, 0);
  
-	//if(mailptr){
-
-	
+	if(mailptr){	
 			mailptr->value = getDIP();
 			mailptr->SW = 1;
-	//}
+	}
 	printf("Value DIP: %d\n", mailptr->value);
 	
 	osMailPut(myMail, mailptr);
@@ -70,10 +68,10 @@ void key2Callback(void)
  myMailQ_t *mailptr;
 	
 	mailptr = osMailAlloc(myMail, 0);
-	
-	mailptr->value = getHex();
-	mailptr->SW = 2;
-	
+	if(mailptr){
+    mailptr->value = getHex();
+    mailptr->SW = 2;
+	}
 		printf("Value HEX: %d\n", mailptr->value);
 	
 	osMailPut(myMail, mailptr);
