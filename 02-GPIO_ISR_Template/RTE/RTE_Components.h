@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'EA' 
- * Target:  'Simulator EA1' 
+ * Target:  'Simulator EA7' 
  */
 
 #ifndef RTE_COMPONENTS_H

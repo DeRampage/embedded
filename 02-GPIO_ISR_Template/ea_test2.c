@@ -29,16 +29,33 @@
   */
 #include "cmsis_os.h"             // ARM::CMSIS:RTOS:Keil RTX
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "tastenleds.h"                 // ETTI4::ETTI4:Embedded laboratory:GPIO-EA
 
 /**
   * @brief  Main Thread
   */
 int32_t main(void)
 {
-
-  
+ e4configAufzug();
+    init_leds_buttons();
+		
     for(;;)
     {
-
+			
+			uint32_t emergencybutton;
+			uint32_t button;
+			
+			osDelay(1);
+			
+			emergencybutton = getNothalt();
+			button = getbutton();
+			
+			if(emergencybutton == 1){
+				setLeds(0xFF);
+			}else{
+				setLeds(0);
+				setLeds(button);
+			}
+			
     }
 }

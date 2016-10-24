@@ -28,15 +28,29 @@
   */
 #include "cmsis_os.h"             // ARM::CMSIS:RTOS:Keil RTX
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "tastenleds.h"                 // ETTI4::ETTI4:Embedded laboratory:GPIO-EA
+#include "possensor.h"                  // ETTI4::ETTI4:Embedded laboratory:GPIO-EA
 
 /**
   * @brief  Main Thread
   */
 int32_t main(void)
 {
-
-
+		e4configAufzug();
+    init_leds_buttons();
+		init_position();
+	
     for(;;)
     {
+			
+			uint32_t sensor;
+			uint32_t button;
+			
+			osDelay(1);
+			
+			sensor = get_position();
+			setLeds(sensor);
+			
+			
     }
 }

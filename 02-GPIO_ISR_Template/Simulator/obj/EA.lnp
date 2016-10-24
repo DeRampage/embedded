@@ -1,6 +1,7 @@
 --cpu Cortex-M3
-".\simulator\obj\ea_test1.o"
+".\simulator\obj\ea_test7.o"
 ".\simulator\obj\tastenleds.o"
+".\simulator\obj\alarm.o"
 ".\simulator\obj\possensor.o"
 ".\simulator\obj\steppermotor.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
