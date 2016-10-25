@@ -47,7 +47,6 @@ int32_t main(void)
 	
 	for(;;)
   {
-		//osDelay(1);
 		button = getbutton() & 0x0F;
 		
 		if(button == 0x8){
@@ -71,7 +70,6 @@ int32_t main(void)
 		}
 	}
 	MotorStop();
-		
-  }
+	}
 	
 }

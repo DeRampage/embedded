@@ -42,7 +42,6 @@ int32_t main(void)
 	
     for(;;)
     {
-			
 			uint32_t sensor;
 			uint32_t button;
 			
@@ -50,7 +49,5 @@ int32_t main(void)
 			
 			sensor = get_position();
 			setLeds(sensor);
-			
-			
-    }
+		}
 }

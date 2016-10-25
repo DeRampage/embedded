@@ -45,17 +45,19 @@ int32_t main(void)
 	init_position();
 	init_alarm();
 	
-	
-  osEvent alarm;
+	osEvent alarm;
 	NVIC_SetPriorityGrouping(0);
 	IDalarmThread = osThreadGetId();
 	
-	
+	uint32_t alarmButton;
 		
     for(;;)
     {
 			alarm = osSignalWait(SIG_ALARM_CHANGE, osWaitForever);
-			if(getAlarm() == 1){
+			alarmButton = getAlarm();
+	
+			if(alarm.status == osEventSignal && alarmButton == 1){
+
 				alarmsig(1);
 				osDelay(10);
 				alarmsig(0);

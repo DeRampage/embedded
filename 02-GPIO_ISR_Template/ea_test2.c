@@ -36,7 +36,7 @@
   */
 int32_t main(void)
 {
- e4configAufzug();
+		e4configAufzug();
     init_leds_buttons();
 		
     for(;;)

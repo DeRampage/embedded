@@ -39,6 +39,7 @@ int32_t cabinedirection;
 /**
   * @brief Function to initialize the stepper motor signals
   */
+	
 void initStepperMotor(void)
 {
 	//GPIO Port 2 OUTPUT MOTOR-CONTROL
@@ -46,33 +47,37 @@ void initStepperMotor(void)
 	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 & ~(0x000003FF);
 	LPC_PINCON->PINMODE_OD2 = LPC_PINCON->PINMODE_OD2 & ~(0x00000001F);
 	
-	
+	//GPIO PRESET & DIRECTION	
 	LPC_GPIO2->FIOSET |=  (3<<2);
 	LPC_GPIO2->FIODIR = LPC_GPIO2->FIODIR | 0xF;
-	//initStepperMotor();
 }
 
 /**
   * @brief Function to do one step
   * @warning Function is called by an timer IRQ-handler
   */
+
 void stepperCallback(void)
 {
   int32_t steps [4] = {0xC, 0x6, 0x3, 0x9};
 	static int32_t count = 0;
 	
-	
 	if(cabinedirection == 1){
+	
 		if(count == 4){
 			count = 0;
 		}
+	
 		LPC_GPIO2->FIOSET = steps[count] & 0xF;
 	  LPC_GPIO2->FIOCLR = ~steps[count] & 0xF;
 		count++;
+	
 	}else{
+
 		if(count == 0){
 			count = 4;
 		}
+
 		count--;
 		LPC_GPIO2->FIOSET = steps[count] & 0xF;
   	LPC_GPIO2->FIOCLR = ~steps[count] & 0xF;
@@ -85,6 +90,7 @@ void stepperCallback(void)
   *                     @arg CABINE_UP
   *                     @arg CABINE_DOWN
   */
+
 void SetMotorDirection(int32_t direction)
 {  
 	cabinedirection = direction; 

@@ -32,9 +32,6 @@
 #include "tastenleds.h"                 // ETTI4::ETTI4:Embedded laboratory:GPIO-EA
 #include "possensor.h"                  // ETTI4::ETTI4:Embedded laboratory:GPIO-EA
 
-
-
-
 osThreadId IDalarmThread; /*!< Thread Id of alarm key receiption Thread */
 
 /**
@@ -46,21 +43,23 @@ int32_t main(void)
   init_leds_buttons();
 	init_position();
 	init_alarm();
-	
-	
+		
   osEvent alarm;
 	NVIC_SetPriorityGrouping(0);
 	IDalarmThread = osThreadGetId();
-	
-	
-		
+	uint32_t alarmButton;
+			
     for(;;)
     {
 			alarm = osSignalWait(SIG_ALARM_CHANGE, osWaitForever);
-			if(getAlarm() == 1){
+			
+			alarmButton = getAlarm();
+			
+			if(alarm.status == osEventSignal && alarmButton == 1){
 				setLeds(0xFF);
 				osDelay(10);
 				setLeds(0);
+				alarmButton = 0;
 			}
     }
 }

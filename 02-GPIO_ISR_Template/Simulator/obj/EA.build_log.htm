@@ -22,38 +22,37 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 C:\Users\Christian\Dropbox\Studium Technische Informatik & Kommunikationstechnik\2. Jahr\HT 2016\Embedded Systems und Digitale Signalverarbeitung\WWW_HT2016a\WWW_HT2016\Embedded\PraktikumVorlage\02-GPIO_ISR_Template\EA.uvprojx
-Project File Date:  10/23/2016
+Project File Date:  10/24/2016
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Simulator EA7'
-compiling alarm.c...
 linking...
-Program Size: Code=7516 RO-data=308 RW-data=84 ZI-data=4612  
+Program Size: Code=7560 RO-data=324 RW-data=84 ZI-data=4612  
 ".\Simulator\obj\EA.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.5.0.pack
+                ::CMSIS:RTOS:1.0 (API)
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: RTOS Version: 1.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.LPC1700_DFP.2.2.0.pack
                 Keil::Device:Startup:1.0.0
                 NXP LPC1700 Series Device Support, Drivers and Examples for MCB1700 and LPC1788-32
    * Component: Startup Version: 1.0.0
-
-Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.5.0.pack
-                ARM::CMSIS:RTOS:Keil RTX:4.80.0
-                CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: Keil RTX Version: 4.80.0
+   * Component: CORE Version: 4.3.0
 
 Package Vendor: ETTI4
                 http://w4s35204/Software%20Projekte%20Dateien/EmbSys_Library/ETTI4.Embedded.1.5.3.pack
                 ETTI4::ETTI4:Embedded laboratory:GPIO-EA:4.5.0
                 Embedded Systems laboratory files
    * Component: GPIO-EA Version: 4.5.0
+   * Component: Keil RTX Version: 4.80.0
    * Component: Configurator Version: 1.4.0
-   * Component: CORE Version: 4.3.0
-   * Component: RTOS Version: 1.0
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\Christian\Dropbox\Studium Technische Informatik & Kommunikationstechnik\2. Jahr\HT 2016\Embedded Systems und Digitale Signalverarbeitung\WWW_HT2016a\WWW_HT2016\Embedded\PraktikumVorlage\02-GPIO_ISR_Template\RTE
@@ -66,42 +65,42 @@ Package Vendor: ETTI4
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\system_LPC17xx.c
-      Source file:   Device\Source\ARM\startup_LPC17xx.s
-      Include file:  Device\Include\LPC17xx.h
-      Include file:  RTE_Driver\Config\RTE_Device.h
+   * Component: ::CMSIS:RTOS:1.0 (API)
 
-   * Component: ARM::CMSIS:RTOS:Keil RTX:4.80.0
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
-      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
-      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
-      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
-      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
-      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\main.c
+   * Component: Keil::Device:Startup:1.0.0
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\system_LPC17xx.c
+      Include file:  Device\Include\LPC17xx.h
+      Source file:   Device\Source\ARM\startup_LPC17xx.s
+
+   * Component: ARM::CMSIS:CORE:4.3.0
 
    * Component: ETTI4::ETTI4:Embedded laboratory:GPIO-EA:4.5.0
+      Include file:  elevator\includes\tastenleds.h
+      Include file:  elevator\includes\alarm.h
       Include file:  elevator\includes\possensor.h
       Include file:  elevator\includes\motor.h
       Library file:  elevator\lib\GPIO.lib
-      Include file:  elevator\includes\alarm.h
-      Include file:  elevator\includes\tastenleds.h
+
+   * Component: ARM::CMSIS:RTOS:Keil RTX:4.80.0
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
+      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
+      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
+      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
+      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
+      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\main.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
 
    * Component: ETTI4::ETTI4:Embedded laboratory:Configurator:1.4.0
       Library file:  config\lib\max_II_configurator.lib
       Include file:  config\includes\max_II_configurator.h
-
-   * Component: ARM::CMSIS:CORE:4.3.0
-
-   * Component: ::CMSIS:RTOS:1.0 (API)
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

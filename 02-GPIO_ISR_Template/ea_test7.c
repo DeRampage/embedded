@@ -33,38 +33,54 @@
 
 osThreadId IDalarmThread; /*!< Thread Id of alarm key receiption Thread */
 
+
+void alarmThread(void const *argument);
+osThreadDef(alarmThread, osPriorityNormal, 1, 0);
+
+void alarmThread(void const *argument){
+	
+	osEvent alarm;
+	uint32_t alarmButton;
+	
+	for(;;)
+	{
+		alarm = osSignalWait(SIG_ALARM_CHANGE, osWaitForever);
+		osDelay(20);																							//Nur zum Testen
+		alarmButton = getAlarm();
+		if(alarm.status == osEventSignal && alarmButton == 1){
+			alarmsig(1);
+			osDelay(15);
+			alarmsig(0);
+		}
+	}
+}
+
 /**
   * @brief  Main Thread
   */
 int32_t main(void)
 {
-	uint32_t button = 1;
-	
 	e4configAufzug();
   init_leds_buttons();
 	init_alarm();
-	
-	osEvent alarm;
 	NVIC_SetPriorityGrouping(0);
-	IDalarmThread = osThreadGetId();
+
+	IDalarmThread = osThreadCreate(osThread(alarmThread), NULL);
+	uint32_t button = 1;
 	
   for(;;)
   {
 		while(getNothalt() != 1){
-			
-			alarm = osSignalWait(SIG_ALARM_CHANGE, 5);
-			if(getAlarm() == 1){
-				alarmsig(1);
-				osDelay(10);
-				alarmsig(0);
-			}
-			
+						
 			if(button == 256){
 				button = 1;
 			}
-			//osDelay(5);
+			osDelay(5);
 			setLeds(button);
 			button = button << 1;
 		}
   }
 }
+
+
+
