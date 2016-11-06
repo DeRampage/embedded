@@ -25,13 +25,21 @@
   */
 
 #include <stdint.h>
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "LPC17xx.h"                    // Device header
+#include "RTE_Device.h"                 // Keil::Device:Startup
 
 /**
   * @brief  function to initialize the hardware for leds and joystick
   */
 void HeartLEDsInit(void)
 {
-
+	LPC_PINCON->PINSEL4 = LPC_PINCON->PINSEL4 & 0x0000;
+	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 & 0x0000;
+	LPC_PINCON->PINMODE_OD2 = LPC_PINCON->PINMODE_OD2  & 0x00;
+	
+	//LPC_GPIO2->FIOSET = 0x01;
+	LPC_GPIO2->FIODIR = LPC_GPIO2->FIODIR | 0xFF;
 }
 
 /**
@@ -42,7 +50,8 @@ void HeartLEDsInit(void)
   */
 void SetHeartLEDs(uint32_t leds)
 {
-
+		LPC_GPIO2->FIOSET = leds;
+		LPC_GPIO2->FIOCLR = ~leds;
 }
 
 /**
@@ -52,9 +61,15 @@ void SetHeartLEDs(uint32_t leds)
   */
 void heartBeatThread(void const * argument)
 {
-
-   for(;;)
-   {
-
-   }
+	HeartLEDsInit();
+	uint16_t shift = 0x1;
+	for(;;)
+	{
+		SetHeartLEDs(shift);
+	  shift = shift << 1; 
+	 	osDelay(5);
+		if(shift == 0x100){
+			shift = 0x01;
+		}
+  }
 }

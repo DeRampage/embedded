@@ -20,7 +20,14 @@
   *           - Template 1769 2011
   ******************************************************************************
   */
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
+#include "LPC17xx.h"                    // Device header
   
+extern osMailQId ADCmailQ;
+extern osMailQId ADC_RawMailQ;
+
+osThreadId adcIRQThreadId;
 
 /**
   * @brief  Thread - ADC interrupt thread
@@ -31,8 +38,36 @@
   */
 void adcIRQThread(void const * argument)
 {
+	osEvent rawEvent;
+	ADC_Raw_t *rawData;
+	myADCmail_t *data;
+	
+	adcIRQThreadId = osThreadGetId();
+	adcIRQInit();
+	
      for(;;)
      {
-         
+        osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
+			 
+				data = osMailAlloc(ADCmailQ, osWaitForever);
+			 
+			 if(data){
+				 adcHwStart();
+				 
+				 rawEvent = osMailGet(ADC_RawMailQ, osWaitForever);
+				 
+				 if(rawEvent.status == osEventMail){
+					 rawData = rawEvent.value.p;
+					 
+					 for(int i = 0; i < 4; i++){
+						 data->ADCresult[i].adcValue = rawData->advalue[i];
+						 data->ADCresult[i].dVolt = (data->ADCresult[i].adcValue * 330 + 20475) / 40950;
+					 }
+					 osMailFree(ADC_RawMailQ, rawData);
+					 osMailPut(ADCmailQ, data);
+				 }
+				 
+			 }
+			 osDelay(25);
      }
 }

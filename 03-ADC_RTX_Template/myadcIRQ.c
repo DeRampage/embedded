@@ -28,15 +28,28 @@
   *           - Template 1769 2011
   ******************************************************************************
   */
+#include "LPC17xx.h"                    // Device header
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
 
-
+extern osMailQId ADC_RawMailQ;
+extern osMailQId ADCmailQ;
 /**
   * @brief  ADC-initialization Burst/interrupt-solution
   * @details Function initialize the uC-Hardware
   */
 void adcIRQInit(void)
 {
-
+	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~(0xFF << 14))| (0x55 << 14);
+	LPC_PINCON->PINMODE1 = (LPC_PINCON->PINMODE1 & ~(0xFF << 14))| (0xAA << 14);
+	LPC_ADC->ADCR = 0x0020040F;   
+	
+	LPC_ADC->ADINTEN = (1<<3);
+	
+	NVIC_SetPriorityGrouping(0);
+	NVIC_SetPriority(ADC_IRQn, 7);
+  NVIC_ClearPendingIRQ(ADC_IRQn);	
+	NVIC_EnableIRQ(ADC_IRQn);
 }
 
 /**
@@ -44,14 +57,28 @@ void adcIRQInit(void)
   */
 void adcHwStart(void)
 {
-
+	LPC_ADC->ADCR = LPC_ADC->ADCR | (1 << 16); //0x0021040F; // 
 }
 
 /**
   * @brief  ADC-exception handler
   */
-void _____Poti_______IRQHandler(void)
+void ADC_IRQHandler(void)
 {
-
-  
+		LPC_ADC->ADCR = LPC_ADC->ADCR & ~(1 << 16); //ADC Stop ()
+		
+	ADC_Raw_t *raw;
+	
+	raw = osMailAlloc(ADC_RawMailQ, 0);
+	
+	if(raw){
+		raw->advalue[0] = (LPC_ADC->ADDR0 >> 4) & 0xFFF;
+		raw->advalue[1] = (LPC_ADC->ADDR1 >> 4) & 0xFFF;
+		raw->advalue[2] = (LPC_ADC->ADDR2 >> 4) & 0xFFF;
+		raw->advalue[3] = (LPC_ADC->ADDR3 >> 4) & 0xFFF;
+		osMailPut(ADC_RawMailQ, raw);
+	}
+	else{
+		LPC_ADC->ADDR3;
+	}
 }

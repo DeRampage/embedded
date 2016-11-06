@@ -22,7 +22,7 @@
   */
 #include "pwmRTX.h"             // ETTI4::ETTI4:Embedded laboratory:PWM and ADC
 #include "pwmDisplay.h"         // ETTI4::ETTI4:Embedded laboratory:PWM and ADC
-
+#include "stdio.h"
 /**
   * @brief Function to update LC display
   * @param [in, out]     pDisp : Pointer display descriptor
@@ -33,4 +33,39 @@
 void updatePWMdisplay(ETTI4disp_t * pDisp, pwm_t * oldPwmCtl, pwm_t * newPwmCtl)
 {
 
+	if(newPwmCtl->servo1.advalue != oldPwmCtl->servo1.advalue){
+		
+		setPosETTI4display (pDisp, 0, 15);
+		printf(	"%d", newPwmCtl->servo1.advalue);
+		
+		setPosETTI4display (pDisp, 1, 4);
+		printf(	"%d.%d", newPwmCtl->servo1.pw/1000, (newPwmCtl->servo1.pw/100)%10);
+		
+		setPosETTI4display (pDisp, 1, 15);
+		printf(	" %d ", newPwmCtl->servo1.arc);
+		
+		
+		setPosETTI4display (pDisp, 0, 0);
+		oldPwmCtl->servo1.advalue = newPwmCtl->servo1.advalue;
+		oldPwmCtl->servo1.arc = newPwmCtl->servo1.arc;
+		oldPwmCtl->servo1.pw = newPwmCtl->servo1.pw;
+	}
+	if(newPwmCtl->servo2.advalue != oldPwmCtl->servo2.advalue){
+		
+		setPosETTI4display (pDisp, 2, 15);
+		printf(	"%d", newPwmCtl->servo2.advalue);
+		
+		setPosETTI4display (pDisp, 3, 4);
+		printf(	"%d.%d", newPwmCtl->servo2.pw/1000, (newPwmCtl->servo1.pw/100)%10);
+		
+		setPosETTI4display (pDisp, 3, 15);
+		printf(	" %d ", newPwmCtl->servo2.arc);
+		
+		setPosETTI4display (pDisp, 0, 0);
+		
+		oldPwmCtl->servo2.advalue = newPwmCtl->servo2.advalue;
+		oldPwmCtl->servo2.arc = newPwmCtl->servo2.arc;
+		oldPwmCtl->servo2.pw = newPwmCtl->servo2.pw;
+	}
+	
 }

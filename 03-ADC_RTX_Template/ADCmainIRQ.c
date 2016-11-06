@@ -21,18 +21,77 @@
   ******************************************************************************
   */
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
+#include "ADCdisp.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "stdio.h"
 
+#define ANZAHL 5
+
+osThreadDef(heartBeatThread, osPriorityIdle, 1, 0);
+
+osThreadDef(adcIRQThread, osPriorityAboveNormal, 1, 0);
+extern osThreadId adcIRQThreadId;
+
+osMailQDef(ADCmailQ, ANZAHL, myADCmail_t);
+osMailQId ADCmailQ;
+
+osMailQDef(ADC_RawMailQ, ANZAHL, ADC_Raw_t);
+osMailQId ADC_RawMailQ;
+
+ETTI4disp_t myDisplay = {
+													.DispType = USE_ETTI4_PARDISPLAY,
+													.NrLines  = 4,
+													.NrCols   = 20,
+													.enHorbar = true
+												};
 /**
   * @brief  Main thread - display of ADC results
   * @retval Errorcode
   */
 int32_t main(void)
 {
-  
-   e4configADC();
+  e4configADC();
+	
+	osEvent mailEvent;
+	myADCmail_t *mailTemp;
+	ADCmailQ = osMailCreate(osMailQ(ADCmailQ), NULL);
+	
 
+	ADC_RawMailQ = osMailCreate(osMailQ(ADC_RawMailQ), NULL);
+	
+	
+	////***Initialisierung Display***\\\\
+	
+	initETTI4display(&myDisplay);
+	clearETTI4display(&myDisplay);
+	
+	
+	////***Ausgabe Startbildschirm***\\\\
+	
+	printf("    Laboratory \n  Embedded Systems\n   Experiment ADC\n    HW-Interrupt\n");
+	osDelay(20);
+	clearETTI4display(&myDisplay);
+	
+	
+	////***Start Threads***\\\\
+	
+	osThreadCreate(osThread(adcIRQThread), NULL);
+	osThreadCreate(osThread(heartBeatThread), NULL);
+	
    for(;;)
-   {
- 
+   { 
+		 osSignalSet(adcIRQThreadId, SIG_ADCTHR_START_ADC);
+		 
+		 mailEvent = osMailGet(ADCmailQ, osWaitForever);
+		 
+		 if(mailEvent.status == osEventMail){
+			 mailTemp = mailEvent.value.p;
+			 //E4adcDisplay(&myDisplay, mailTemp);
+			 //clearETTI4display(&myDisplay);
+			 adcDisplay(&myDisplay, mailTemp);
+			
+			 osMailFree(ADCmailQ, mailTemp);
+		 }
    }
 }

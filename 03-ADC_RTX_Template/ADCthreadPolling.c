@@ -19,6 +19,18 @@
   *           - Template 1769 2011
   ******************************************************************************
   */
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
+#include "LPC17xx.h"                    // Device header
+
+extern osMailQId ADCmailQ;
+
+osThreadId adcPollThreadId;
+
+myADCmail_t *data;	//Nur für Debugging
+
+ADC_Channel_t Channel;
+
 
 /**
   * @brief  Thread - ADC polling thread
@@ -28,10 +40,27 @@
   * @retval none
   */
 void adcPollThread(void const * argument)
-{
-
-     for(;;)
+{	
+	uint32_t value = 0;
+	myADCmail_t *data;
+	
+	adcPollThreadId = osThreadGetId();
+	adcPollInit(&Channel); 
+		
+	for(;;)
      {
-         
-     }
+  		osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
+			data = osMailAlloc(ADCmailQ, osWaitForever);
+
+			 if(data){
+
+				 for(int i =0; i < 4; i++){					 
+					 adcSWstart(Channel.ChanSelect[i]);
+					 while(!readADC(&value));
+					 data->ADCresult[i].adcValue = value;
+					 data->ADCresult[i].dVolt = (data->ADCresult[i].adcValue * 330 + 20475) / 40950;
+				 }
+				 osMailPut(ADCmailQ, data);
+			 }
+		 }//FREE FEHLT!
 }

@@ -22,12 +22,31 @@
   */
 #include "pwmRTX.h"              // ETTI4::ETTI4:Embedded laboratory:PWM and ADC
 
+
+#define TIME20MS 20000
+#define TIMEDEFAULT 1500
 /**
   * @brief Function initializes PWM-unit
   */
 void initPWM(void)
 {
-
+	LPC_PWM1->TCR = 0;
+	LPC_PWM1->CTCR = 0;
+	LPC_PWM1->PR = 0x1C;
+	LPC_PWM1->PC = 0;
+	LPC_PWM1->TC = 0;
+	LPC_PWM1->MR0 = TIME20MS - 1; 
+	LPC_PWM1->MR2 = TIMEDEFAULT; 
+	LPC_PWM1->MR5 = TIMEDEFAULT; 
+	LPC_PWM1->MCR = 0x02;
+	LPC_PWM1->PCR = 0x2400;
+	
+	LPC_PWM1->TCR = 9;
+	
+	LPC_PINCON->PINSEL4 = (LPC_PINCON->PINSEL4 & ~((3<<8)|(3<<2)))|((1<<8)|(1<<2));
+	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 | ((3<<8)|(3<<2));
+	LPC_PINCON->PINMODE_OD2 = LPC_PINCON->PINMODE_OD2 & ~((1<<4)|(1<<2));
+	
 }
 
 /**
@@ -36,5 +55,7 @@ void initPWM(void)
   */
 void setServoPWM(pwm_t * pwmPtr)
 {
-
+   LPC_PWM1->MR2 = pwmPtr->servo2.pw;
+	LPC_PWM1->MR5 = pwmPtr->servo1.pw;
+	LPC_PWM1->LER = 0x24;
 }
