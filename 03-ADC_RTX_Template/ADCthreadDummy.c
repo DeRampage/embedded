@@ -19,7 +19,9 @@
   *           - Template 1769 2011
   ******************************************************************************
   */
-  
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
+#include "stdlib.h" 
 /**
   * @brief  Thread - ADC dummy thread
   * @details If the trigger signal is received, the thread transfers test values
@@ -28,35 +30,26 @@
   * @param  argument : not used 
   * @retval none
   */
-#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
-#include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
-#include "stdlib.h"
-
 extern osMailQId ADCmailQ;
 
-osThreadId adcDummyThreadId;  
 
-myADCmail_t *data;		//Nur zum Debuggen
 
+myADCmail_t *data;
+	
 void adcDummyThread(void const * argument)
 {
-   adcDummyThreadId = osThreadGetId();
+   
 	
    for(;;)
    {
-		//Warten auf SIGNAL vom Main-Thread
-		osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
-		
-//		myADCmail_t *data;
-		data = osMailAlloc(ADCmailQ, osWaitForever); 
-		
-		if(data){
-			//Erstellen von Zufallswerten 
-			for(int i = 0; i < 4; i++){
-			data->ADCresult[i].dVolt = rand()%33;
-			}
-			osMailPut(ADCmailQ, data);
-		}
-		
+		 osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
+		 data = osMailAlloc(ADCmailQ, osWaitForever);
+		 if(data){
+			 for(int i = 0; i < 4; i++){
+				 data->ADCresult[i].dVolt = rand()%33;
+			 }
+			 osMailPut(ADCmailQ, data);
+		 }
+
    }
 }

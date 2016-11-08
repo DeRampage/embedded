@@ -32,6 +32,7 @@
 #include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 #include "LPC17xx.h"                    // Device header
 #include "stdbool.h"
+
 /**
   * @brief  ADC-initialization polling-solution
   * @details Funtcion initialize the uC-Hardware and the variables
@@ -41,17 +42,17 @@
   */
 void adcPollInit(ADC_Channel_t * ChannelPtr)
 {
-	
-	ChannelPtr->ChanSelect[0] = 0x01;
+  ChannelPtr->ChanSelect[0] = 0x01;
 	ChannelPtr->ChanSelect[1] = 0x02;
 	ChannelPtr->ChanSelect[2] = 0x04;
 	ChannelPtr->ChanSelect[3] = 0x08;
-		
-	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~(0xFF << 14))| (0x55 << 14);
-	LPC_PINCON->PINMODE1 = (LPC_PINCON->PINMODE1 & ~(0xFF << 14))| (0xAA << 14);
 	
-	LPC_ADC->ADCR = 0x0020040F;   //0x00200400; //Grundsätzlich wäre die Kanalanwahl überflüssig, da die Auswahl über den Start geschieht
+	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~(0xFF << 14)) | (0x55 << 14);
+	LPC_PINCON->PINMODE1 = (LPC_PINCON->PINMODE1 & ~(0xFF << 14)) | (0xAA << 14);
+	
+	LPC_ADC->ADCR = 0x00200400;
 }
+
 /**
   * @brief  function starts ADC
   * @param  adcSel : select-code of the channel, to be converted
@@ -59,7 +60,7 @@ void adcPollInit(ADC_Channel_t * ChannelPtr)
   */
 void adcSWstart(uint32_t adcSel)
 {
-LPC_ADC->ADCR = ((LPC_ADC->ADCR & ~(0xF)) | adcSel) | (1<<24);
+	LPC_ADC->ADCR = ((LPC_ADC->ADCR & ~(0xF)) | adcSel) | (1 << 24);
 }
 
 /**
@@ -72,10 +73,11 @@ LPC_ADC->ADCR = ((LPC_ADC->ADCR & ~(0xF)) | adcSel) | (1<<24);
   */
 uint32_t readADC(uint32_t * PtrAdvalue)
 {
-			
-	if(LPC_ADC->ADGDR & 0x80000000){
-		*PtrAdvalue = (LPC_ADC->ADGDR >> 4) & 0xFFF;
-		return (true);
-	}		
-		return (false);
+	uint32_t temp = LPC_ADC->ADGDR; 
+	
+	if(temp & 0x80000000){
+		*PtrAdvalue = (temp >> 4) & 0xFFF;
+		return(true);
+	}
+	return (false);
 }

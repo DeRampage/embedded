@@ -1,0 +1,18 @@
+--cpu Cortex-M3
+".\ram\obj\adcmainirq.o"
+".\ram\obj\adcthreadirq.o"
+".\ram\obj\heartbeat.o"
+".\ram\obj\myadcirq.o"
+".\ram\obj\adcdisp.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
+".\ram\obj\rtx_conf_cm.o"
+".\ram\obj\retarget_io.o"
+".\ram\obj\startup_lpc17xx.o"
+".\ram\obj\system_lpc17xx.o"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\ADC_RTX\lib\ADC_RTX.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\config\lib\max_II_configurator.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\disp\lib\EmbSysLPC17disp.lib"
+--strict --scatter ".\RAM\obj\ADC_RTX.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\RAM\lst\ADC_RTX.map" -o .\RAM\obj\ADC_RTX.axf

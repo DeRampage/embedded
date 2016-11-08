@@ -29,95 +29,69 @@
 
 #define ANZAHL 5
 
-osThreadDef(heartBeatThread, osPriorityIdle, 1, 0);
-
-////***Solution for Polling***\\\\
+osThreadDef(E4heartBeatThread, osPriorityIdle, 1, 0);
 
 osThreadDef(adcPollThread, osPriorityAboveNormal, 1, 0);
-extern osThreadId adcPollThreadId;
+osThreadId adcPollThreadId;
 
-////***Solution for Simulation***\\\\
-
-//osThreadDef(adcDummyThread, osPriorityAboveNormal, 1, 0);
-//extern osThreadId adcDummyThreadId;
+//osThreadDef(E4adcPollThread, osPriorityAboveNormal, 1, 0);
+//osThreadId E4adcPollThreadId;
 
 
 osMailQDef(ADCmailQ, ANZAHL, myADCmail_t);
 osMailQId ADCmailQ;
 
+
 ETTI4disp_t myDisplay = {
 													.DispType = USE_ETTI4_PARDISPLAY,
-													.NrLines  = 4,
-													.NrCols   = 20,
-													.enHorbar = true
-												};
-												
+													.NrLines = 4,
+													.NrCols = 20,
+													.enHorbar = true};
 /**
   * @brief  Main thread - display of ADC results
   * @retval Errorcode
   */
-												
 int32_t main(void)
-	{
+{
+   
   e4configADC();
-		
-	////***Initialisierung Display***\\\\
-	
 	initETTI4display(&myDisplay);
 	clearETTI4display(&myDisplay);
+	printf("    Laboratory\n"
+				 "  Embedded Systems\n"
+				 "   Experiment ADC\n"
+				 "    SW-Polling\n");
 	
-	////***Ausgabe Startbildschirm***\\\\
-	
-	printf("    Laboratory \n  Embedded Systems\n   Experiment ADC\n    SW-Polling\n");
-	osDelay(20);
+	osDelay(2000);
 	clearETTI4display(&myDisplay);
-	
-	////***Start Threads***\\\\
-
-  osThreadCreate(osThread(adcPollThread), NULL);
-//	osThreadCreate(osThread(adcDummyThread), NULL);
-
+	/*
+	adcDummyThreadId = osThreadCreate(osThread(adcDummyThread), NULL);
 	osThreadCreate(osThread(heartBeatThread), NULL);
+	*/
+	//E4adcPollThreadId = osThreadCreate(osThread(E4adcPollThread), NULL);
+	adcPollThreadId = osThreadCreate(osThread(adcPollThread), NULL);
+	osThreadCreate(osThread(E4heartBeatThread), NULL);
 	
-		
+	
 	osEvent mailEvent;
 	myADCmail_t *mailTemp;
+	myADCmail_t temp;
 	ADCmailQ = osMailCreate(osMailQ(ADCmailQ), NULL);
 	
-  for(;;)
+   for(;;)
    {
-		 ////***SIGNAL an Dummy-Thread***\\\\
-		 
-//		 osSignalSet(adcDummyThreadId, SIG_ADCTHR_START_ADC);
-
-		 
-		 ////***SIGNAL an Poll-Thread***\\\\
-
 		 osSignalSet(adcPollThreadId, SIG_ADCTHR_START_ADC);
-		
-		 
-		 ////***Warten auf Mail vom Dummy-Thread***\\\\
 		 
 		 mailEvent = osMailGet(ADCmailQ, osWaitForever);
 		 
 		 if(mailEvent.status == osEventMail){
-
-			 
-			 ////***Kopieren in lokale Variable***\\\\
-			
 			 mailTemp = mailEvent.value.p;
-
-			 
-			 ////***Ausgabe am Display***\\\\
-
-		   E4adcDisplay(&myDisplay, mailTemp);
-//		 adcDisplay(&myDisplay, mailTemp);
-			
-			 
-			 ////***Freigeben des Speichers***\\\\
-   		 
+			 temp = *mailTemp;
 			 osMailFree(ADCmailQ, mailTemp);
+			 //adcDisplay(&myDisplay, mailTemp);
+			 E4adcDisplay(&myDisplay, &temp);
+			 
 		 }
-		 osDelay(15); //soll 150
-	 }
+		osDelay(150);
+   }
 }

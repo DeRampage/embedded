@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'ADC_RTX' 
- * Target:  'Sim - BurstIRQ' 
+ * Target:  'Debug - BurstIRQ' 
  */
 
 #ifndef RTE_COMPONENTS_H

@@ -10,7 +10,7 @@
       <TargetName>Sim - Dummy</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -427,7 +427,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -492,7 +492,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -547,7 +547,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -617,7 +617,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -677,7 +677,7 @@
                 <vShortEn>0</vShortEn>
                 <vShortWch>0</vShortWch>
                 <v6Lto>0</v6Lto>
-                <v6WtE>2</v6WtE>
+                <v6WtE>0</v6WtE>
                 <v6Rtti>2</v6Rtti>
                 <VariousControls>
                   <MiscControls></MiscControls>
@@ -751,7 +751,7 @@
                 <vShortEn>0</vShortEn>
                 <vShortWch>0</vShortWch>
                 <v6Lto>0</v6Lto>
-                <v6WtE>2</v6WtE>
+                <v6WtE>0</v6WtE>
                 <v6Rtti>2</v6Rtti>
                 <VariousControls>
                   <MiscControls></MiscControls>
@@ -790,7 +790,6 @@
       <TargetName>Sim - Polling</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -1207,7 +1206,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1267,7 +1266,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1327,7 +1326,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1397,7 +1396,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1434,7 +1433,6 @@
       <TargetName>Sim - BurstIRQ</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -1846,7 +1844,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1911,7 +1909,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -1966,7 +1964,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2036,7 +2034,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2078,6 +2076,7 @@
       <TargetName>Debug - Dummy</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -2494,7 +2493,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2559,7 +2558,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2614,7 +2613,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2684,7 +2683,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -2750,7 +2749,7 @@
                 <vShortEn>0</vShortEn>
                 <vShortWch>0</vShortWch>
                 <v6Lto>0</v6Lto>
-                <v6WtE>2</v6WtE>
+                <v6WtE>0</v6WtE>
                 <v6Rtti>2</v6Rtti>
                 <VariousControls>
                   <MiscControls></MiscControls>
@@ -2789,6 +2788,7 @@
       <TargetName>Debug - Polling</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -3205,7 +3205,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3265,7 +3265,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3325,7 +3325,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3395,7 +3395,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3432,6 +3432,7 @@
       <TargetName>Debug - BurstIRQ</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -3843,7 +3844,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3908,7 +3909,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -3963,7 +3964,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -4033,7 +4034,7 @@
                     <vShortEn>0</vShortEn>
                     <vShortWch>0</vShortWch>
                     <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
+                    <v6WtE>0</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
                       <MiscControls></MiscControls>
@@ -4169,8 +4170,8 @@
     <files>
       <file attr="config" category="source" name="CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c" version="4.74.0">
         <instance index="0">RTE\CMSIS\RTX_Conf_CM.c</instance>
-        <component Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.80.0" condition="Cortex-M Device Startup"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+        <component Capiversion="1.0" Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.81.0" condition="RTOS RTX"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.0.0-Beta12"/>
         <targetInfos>
           <targetInfo name="Debug - BurstIRQ" versionMatchMode="any"/>
           <targetInfo name="Debug - Dummy" versionMatchMode="any"/>

@@ -23,15 +23,6 @@
 #include "adc_RTX.h"                    // ETTI4::ETTI4:Embedded laboratory:ADC-RTX
 #include "LPC17xx.h"                    // Device header
 
-extern osMailQId ADCmailQ;
-
-osThreadId adcPollThreadId;
-
-myADCmail_t *data;	//Nur für Debugging
-
-ADC_Channel_t Channel;
-
-
 /**
   * @brief  Thread - ADC polling thread
   * @details Thread starts ADC, waits for the ADC result and transfers
@@ -39,28 +30,40 @@ ADC_Channel_t Channel;
   * @param  argument : not used
   * @retval none
   */
+	
+extern osMailQId ADCmailQ;
+
+myADCmail_t *data;
+ADC_Channel_t channel;
+
 void adcPollThread(void const * argument)
-{	
-	uint32_t value = 0;
+{
+  uint32_t value = 0;
 	myADCmail_t *data;
 	
-	adcPollThreadId = osThreadGetId();
-	adcPollInit(&Channel); 
-		
-	for(;;)
-     {
-  		osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
-			data = osMailAlloc(ADCmailQ, osWaitForever);
-
-			 if(data){
-
-				 for(int i =0; i < 4; i++){					 
-					 adcSWstart(Channel.ChanSelect[i]);
-					 while(!readADC(&value));
-					 data->ADCresult[i].adcValue = value;
-					 data->ADCresult[i].dVolt = (data->ADCresult[i].adcValue * 330 + 20475) / 40950;
-				 }
-				 osMailPut(ADCmailQ, data);
+	
+	adcPollInit(&channel);
+	//E4adcPollInit(&channel);
+	
+	
+   for(;;)
+   {
+		 osSignalWait(SIG_ADCTHR_START_ADC, osWaitForever);
+		 data = osMailAlloc(ADCmailQ, osWaitForever);
+		 if(data){
+			 for(int i = 0; i < 4; i++){
+				 
+				 adcSWstart(channel.ChanSelect[i]);
+				 //E4adcSWstart(channel.ChanSelect[i]);
+				 
+				 while(!readADC(&value));
+				 //while(!E4readADC(&value));
+				 
+				 data->ADCresult[i].adcValue = value;
+				 data->ADCresult[i].dVolt = (data->ADCresult[i].adcValue * 330 + 20475) / 40950;
 			 }
-		 }//FREE FEHLT!
+			 osMailPut(ADCmailQ, data);
+		 }
+
+   }
 }
