@@ -18,7 +18,15 @@
   *           - Template initial version LPC1769
   ******************************************************************************
   */
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "Motkeys.h"                    // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "hexsw.h"                      // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "keythread.h"                  // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "drehzahl.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "rotMotor.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 
+
+extern drehzahl_t ActMotorStatus;
 /**
   * @brief  Key thread
   * @details Thread controls all keys and switches
@@ -29,9 +37,57 @@
   */
 void keyThread(void const *argument)
 {
-
-  for(;;)
-  {
+	E4initHEXSW();
+	//initHEXSW();
+	E4initMotKeysIRQ();
+	//initMotKeysIRQ();
+	
+	
+	osEvent signals;
+	signals = osSignalWait(0, osWaitForever);
+for(;;){
+	
+	if(signals.status == osEventSignal){
+		
+		if(signals.value.signals == SIG_KEY_LEFT_RIGHT){
+			if(ActMotorStatus.direction == Right){
+				//Semaphore
+				ActMotorStatus.direction = Left;
+				setDirection(Left);
+			}else{
+			//if(ActMotorStatus.direction == Left){
+				//Semaphore
+				ActMotorStatus.direction = Right;
+				setDirection(Right);
+				
+			}
+			osSignalClear(keyThreadID, SIG_KEY_LEFT_RIGHT); //Notwendig?
+		}
+		
+		if(signals.value.signals == SIG_KEY_RUNSTOP){
+			if(ActMotorStatus.status == Stopped){
+				//Semaphore
+				ActMotorStatus.status = Run;
+			}
+			
+			if(ActMotorStatus.status == Run){
+				//Semaphore
+				ActMotorStatus.status = Stopped;
+				
+			}
+			//Semaphore
+			setRunStop(&ActMotorStatus);
+		
+		}
+		
+		if(signals.value.signals == SIG_KEY_NEWHEX){
+			//Semaphore
+			ActMotorStatus.speedstep = (LPC_GPIO0->FIOPIN >> 4) & 0xFF;
+			updateSpeed(&ActMotorStatus);
+		}
+	}
+	
+  
 
   } // end for
 }

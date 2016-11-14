@@ -20,14 +20,31 @@
   *           - Template initial version LPC1769
   ******************************************************************************
   */
-#include "hexsw.h" // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+//#include "hexsw.h" // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "LPC17xx.h"                    // Device header
+#include "keythread.h"                  // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+
+
+
 
 /**
   * @brief Function to initialize HW to read Hex switches
   */
 void initHEXSW(void)
 {
-
+	LPC_PINCON->PINSEL0 = LPC_PINCON->PINSEL0 & ~(0xFF << 8);
+	LPC_PINCON->PINMODE0 = LPC_PINCON->PINMODE0 & ~(0xFF << 8);
+	
+	LPC_GPIO0->FIODIR = LPC_GPIO0->FIODIR & ~(0xF << 4);
+	
+	LPC_GPIOINT->IO0IntEnR = LPC_GPIOINT->IO0IntEnR | (0xF << 4);
+	LPC_GPIOINT->IO0IntEnF = LPC_GPIOINT->IO0IntEnR | (0xF << 4);
+	LPC_GPIOINT->IO0IntClr = 0xFFFFFFFF;
+	
+	NVIC_SetPriority(EINT3_IRQn, 22);
+	NVIC_ClearPendingIRQ(EINT3_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
 }
 
 /**
@@ -36,13 +53,14 @@ void initHEXSW(void)
   */
 uint32_t getHexSW(void)
 {
-   
+   return (LPC_GPIO0->FIOPIN >> 4) & 0xF;
 }
 
 /**
   * @brief IRQ-Handler for value change of Hex switch
   */
-void ____HexChange____IRQHandler(void)
-{  
 
+void EINT3_IRQHandler(void)
+{  
+	osSignalSet(keyThreadID, SIG_KEY_NEWHEX);
 }

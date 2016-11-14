@@ -19,6 +19,44 @@
   ******************************************************************************
   */
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "EmbSysARMDisp.h"              // ETTI4::ETTI4:Embedded laboratory:Displays
+#include "RotationDisplay.h"            // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "drehzahl.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "hexsw.h"                      // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "keythread.h"                  // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "rotMotor.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "stdio.h"
+#include "RotationSensor.h"             // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "RotationDisplay.h"            // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "Motkeys.h"                    // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+
+
+
+drehzahl_t ActMotorStatus;
+
+ETTI4disp_t MotDisp = {
+													.DispType = USE_ETTI4_PARDISPLAY,
+													.NrLines  = 4,
+													.NrCols   = 20,
+													.enHorbar = false
+};
+
+
+osSemaphoreId MotorStatusSem;
+osSemaphoreDef(MotorStatusSem);
+
+
+osThreadDef(RotSensorThread, osPriorityHigh, 1, 0);
+osThreadId RotSensorThreadID;
+
+void keyThread(void const* argument);;					//da noch nicht deklariert (header file)
+
+osThreadDef(keyThread, osPriorityNormal, 1, 0);
+osThreadId keyThreadID;
+
+//osThreadDef(E4keyThread, osPriorityNormal, 1, 0);
+//osThreadId E4keyThreadID;
 
 /**
   * @brief  main thread Exercise engine speed with RTX
@@ -26,9 +64,70 @@
   */
 int32_t main(void)
 {    
-    e4configDrehzahl();
-  
-    for(;;)
-    {
-    }
+  e4configDrehzahl();
+  drehzahl_t oldstatus;
+	drehzahl_t newstatus;
+		
+	NVIC_SetPriorityGrouping(0);
+	  
+	E4initHEXSW();
+	//initHEXSW();
+	
+	uint32_t temp = E4getHexSW();
+	//getHexSW();
+		
+	//Initialisierung 
+	ActMotorStatus.status = Run;
+	ActMotorStatus.direction = Right;
+	ActMotorStatus.speedstep = temp;
+	ActMotorStatus.drehzahl = 0;
+	
+	E4initMotor(&ActMotorStatus);
+	//initMotor(&ActMotorStatus);
+	
+	////***Ausgabe Startbildschirm***\\\\
+	
+	/*
+	initETTI4display(&MotDisp);
+	clearETTI4display(&MotDisp);
+	
+	
+	
+	printf("     Laboratory 		\n"
+				 "  Embedded Systems	\n"
+				 "     Experiment 		\n"
+				 "    Motor Test 		\n");
+				 
+	osDelay(20);
+	clearETTI4display(&MotDisp);
+	
+	printf(	"Rotation Measurement\n"
+					"Status:       -\n"
+					"Speed Step:\n"
+					"Rotation:      Hz\n");
+	*/				
+	MotorStatusSem = osSemaphoreCreate(osSemaphore(MotorStatusSem), 1);
+	
+	keyThreadID = osThreadCreate(osThread(keyThread), NULL);
+//	E4keyThreadID = osThreadCreate(osThread(E4keyThread), NULL);
+	RotSensorThreadID = osThreadCreate(osThread(RotSensorThread), NULL);			//E4 Funktions!
+	
+	osThreadId mainThreadID = osThreadGetId();
+	
+	osThreadSetPriority(mainThreadID, osPriorityIdle);
+	
+  for(;;)
+  {
+		osDelay(25);;
+		//??? SEMAPHORE ???
+		/*
+		osSemaphoreWait(MotorStatusSem, osWaitForever);
+	 ActMotorStatus.speedstep = hex;
+	 osSemaphoreRelease(MotorStatusSem);
+		*/
+		 newstatus = ActMotorStatus;
+		
+		//updateDisplayvoid(&MotDisp, &oldstatus, &newstatus);
+		//E4updateDisplay(&MotDisp, &oldstatus, &newstatus);
+  }
 }
