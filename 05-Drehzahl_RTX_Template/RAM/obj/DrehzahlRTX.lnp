@@ -6,14 +6,14 @@
 ".\ram\obj\motkeys.o"
 ".\ram\obj\keythread.o"
 ".\ram\obj\rotationdisplay.o"
-"C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
 ".\ram\obj\rtx_conf_cm.o"
 ".\ram\obj\retarget_io.o"
 ".\ram\obj\startup_lpc17xx.o"
 ".\ram\obj\system_lpc17xx.o"
-"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\config\lib\max_II_configurator.lib"
-"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\disp\lib\EmbSysLPC17disp.lib"
-"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\revolutionRTX\lib\DrehzahlRTX.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\config\lib\max_II_configurator.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\disp\lib\EmbSysLPC17disp.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\revolutionRTX\lib\DrehzahlRTX.lib"
 --strict --scatter ".\RAM\obj\DrehzahlRTX.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -1,0 +1,17 @@
+--cpu Cortex-M3
+".\ram\obj\pwm_main.o"
+".\ram\obj\pwm_adc.o"
+".\ram\obj\servopwm.o"
+".\ram\obj\pwmdisplay.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
+".\ram\obj\rtx_conf_cm.o"
+".\ram\obj\retarget_io.o"
+".\ram\obj\startup_lpc17xx.o"
+".\ram\obj\system_lpc17xx.o"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\PWM_ADC\lib\pwmRTX.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\config\lib\max_II_configurator.lib"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\disp\lib\EmbSysLPC17disp.lib"
+--strict --scatter ".\RAM\obj\pwmRTX.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\RAM\lst\pwmRTX.map" -o .\RAM\obj\pwmRTX.axf

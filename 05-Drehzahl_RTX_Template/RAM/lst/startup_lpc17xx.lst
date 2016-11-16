@@ -432,20 +432,16 @@ ARM Macro Assembler    Page 7
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\ram\obj\startup_lpc17xx.d -o.\ram\obj\startup_lpc17xx.o -I"C:\Us
-ers\Chris\Dropbox\Studium Technische Informatik & Kommunikationstechnik\2. Jahr
-\HT 2016\Embedded Systems und Digitale Signalverarbeitung\Embedded Systems Prak
-tikum\Vorlagen\05-Drehzahl_RTX_Template\RTE" -I"C:\Users\Chris\Dropbox\Studium 
-Technische Informatik & Kommunikationstechnik\2. Jahr\HT 2016\Embedded Systems 
-und Digitale Signalverarbeitung\Embedded Systems Praktikum\Vorlagen\05-Drehzahl
-_RTX_Template\RTE\Device\LPC1769" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\I
-nclude -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\INC -IC:\Keil_v5\AR
-M\PACK\ETTI4\Embedded\1.5.3\config\includes -IC:\Keil_v5\ARM\PACK\ETTI4\Embedde
-d\1.5.3\disp\includes -IC:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\revolutionRTX\
-includes -IC:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.2.0\Device\Include --predefin
-e="__RTX SETA 1" --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SET
-A 521" --predefine="_RTE_ SETA 1" --predefine="LPC175x_6x SETA 1" --list=.\ram\
-lst\startup_lpc17xx.lst RTE\Device\LPC1769\startup_LPC17xx.s
+ork --depend=.\ram\obj\startup_lpc17xx.d -o.\ram\obj\startup_lpc17xx.o -IS:\Emb
+Sys04\05-Drehzahl_RTX\RTE -IS:\EmbSys04\05-Drehzahl_RTX\RTE\Device\LPC1769 -IC:
+\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta12\CMSIS\Include -IC:\Keil_v5\ARM\PACK\AR
+M\CMSIS\5.0.0-Beta12\CMSIS\RTOS\RTX\INC -IC:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.
+5.4\config\includes -IC:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\disp\includes -I
+C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.4\revolutionRTX\includes -IC:\Keil_v5\AR
+M\PACK\Keil\LPC1700_DFP\2.2.0\Device\Include --predefine="__RTX SETA 1" --prede
+fine="__UVISION_VERSION SETA 521" --predefine="_RTE_ SETA 1" --predefine="LPC17
+5x_6x SETA 1" --list=.\ram\lst\startup_lpc17xx.lst RTE\Device\LPC1769\startup_L
+PC17xx.s
 
 
 
@@ -1098,4 +1094,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-405 symbols in table
+404 symbols in table

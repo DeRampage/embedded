@@ -23,24 +23,27 @@
 #include "RotationSensor.h"             // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 #include "drehzahl.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 
+
 extern drehzahl_t ActMotorStatus;
+extern osSemaphoreId MotorStatusSem;
 
 osMessageQDef(dataQ, 4, uint32_t);
 osMessageQId dataQ;
+
+
 /**
   * @brief  Sensor IRQ-Handler
   * @details Acquisition of two complete 2 rotations = 8 measurement values
   */
-void TIMER0_IRQHandler(void) //Da Lichtschranke an CAP0.0
+void TIMER0_IRQHandler(void)
 {
-	uint32_t drehzahl = LPC_TIM0->CR0;// - LPC_TIM0->CR0);										//Auslesen und Berechnung Periodendauer
-	//LPC_TIM0->TCR = LPC_TIM0->TCR | 0x2;					//TC reset on
+	uint32_t neu = LPC_TIM0->CR0;
+	static uint32_t old;
 	
-	//LPC_TIM0->TCR = LPC_TIM0->TCR & 0x2;					//TC reset off
+	osMessagePut(dataQ, neu-old, 0);
 	
-	osMessagePut(dataQ, drehzahl, 0);
-	LPC_TIM0->TC = 0;
 	LPC_TIM0->IR = 0x3F;
+	old = neu;
 }
 
 /**
@@ -51,59 +54,66 @@ void initSensor(void)
 	LPC_PINCON->PINSEL3 = LPC_PINCON->PINSEL3 | (0x3 << 20);
 	LPC_PINCON->PINMODE3 = LPC_PINCON->PINMODE3 & ~(0x3 << 20);
 	
-	LPC_TIM0->TCR = 0;		//TIMER STOP
-	LPC_TIM0->CTCR = 0;		//MODE: TIMER
-	LPC_TIM0->PR = 0;			//Prescaler = 1
-	LPC_TIM0->TC = 0;			//Set Timer = 0
-	LPC_TIM0->CCR = 05;		//OCTAL! = 0b0101
+	LPC_TIM0->TCR = 0;
+	LPC_TIM0->CTCR = 0;
+	LPC_TIM0->PR = 29;
+	LPC_TIM0->TC = 0;
+	LPC_TIM0->CCR = 05;
 	
-	LPC_TIM0->MCR = 0;		//NO MATCH
-	LPC_TIM0->EMR = 0;		//NO MATCH
+	LPC_TIM0->MCR = 0;
+	LPC_TIM0->EMR = 0;
 	
-	LPC_TIM0->IR = 0x3F;	//RESET IRQ
+	LPC_TIM0->IR = 0x3F;
 	
 	NVIC_SetPriority(TIMER0_IRQn, 17);
 	NVIC_ClearPendingIRQ(TIMER0_IRQn);
 	NVIC_EnableIRQ(TIMER0_IRQn);
 	
-	LPC_TIM0->TCR = 1;		//TIMER START
-	
+	LPC_TIM0->TCR = 1;
 }
 
 /**
   * @brief  Sensor thread
   * @param  argument : not used
   */
+
+
 void RotSensorThread(void const *argument)
 {
-	initSensor(); 
+	initSensor();
+	
 	dataQ = osMessageCreate(osMessageQ(dataQ), NULL);
 	
 	osEvent incoming;
-	int count = 0;
-	uint32_t drehzahl = 0;
-  for(;;)
-  {
-		incoming = osMessageGet(dataQ, 1000);
-		
-		if(incoming.status == osEventMessage){
-			
-			
-			drehzahl = drehzahl + incoming.value.v;
-			count++;
-			
-			if(count == 8){
-				drehzahl = drehzahl / 2;
-				//Semaphore
-				ActMotorStatus.drehzahl = drehzahl;
-				drehzahl = 0;
-				count = 0;
-			}
-			 
-		}
-		//Semaphore
-		ActMotorStatus.drehzahl = 0;
-	}
-		
- }
+	
+	uint32_t count = 0;
+	uint32_t periode = 0;
+	uint16_t drehzahl = 0;
 
+   for(;;)
+   {
+		 incoming = osMessageGet(dataQ, 1000);
+		 
+		 if(incoming.status == osEventMessage){
+			 periode = periode + incoming.value.v;
+			 
+			 count++;
+			 
+			 if(count == 8){
+				 drehzahl = (20000000/periode); // /2
+				 
+				 osSemaphoreWait(MotorStatusSem, osWaitForever);
+				 ActMotorStatus.drehzahl = drehzahl;
+				 osSemaphoreRelease(MotorStatusSem);
+				 
+				 drehzahl = 0;
+				 periode = 0;
+				 count = 0;
+			 }
+		 }else{
+		osSemaphoreWait(MotorStatusSem, osWaitForever);
+		ActMotorStatus.drehzahl = 0;
+		osSemaphoreRelease(MotorStatusSem);
+		 }
+   }
+}

@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'pwmRTX' 
- * Target:  'Sim - PWM' 
+ * Target:  'Debug - PWM' 
  */
 
 #ifndef RTE_COMPONENTS_H

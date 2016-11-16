@@ -10,7 +10,6 @@
       <TargetName>Sim - Drehzahl</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -960,8 +959,8 @@
     <files>
       <file attr="config" category="source" name="CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c" version="4.74.0">
         <instance index="0">RTE\CMSIS\RTX_Conf_CM.c</instance>
-        <component Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.80.0" condition="Cortex-M Device Startup"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
+        <component Capiversion="1.0" Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.81.0" condition="RTOS RTX"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.0.0-Beta12"/>
         <targetInfos>
           <targetInfo name="Debug - Drehzahl" versionMatchMode="any"/>
           <targetInfo name="Sim - Drehzahl" versionMatchMode="any"/>
@@ -1002,8 +1001,8 @@
       </file>
       <file attr="config" category="doc" name="revolutionRTX\DrehzahlRTX.ini" version="4.0.0">
         <instance index="0">RTE\ETTI4\LPC1769\DrehzahlRTX.ini</instance>
-        <component Cclass="ETTI4" Cgroup="Embedded laboratory" Csub="Revolution measurement" Cvendor="ETTI4" Cversion="4.0.0" condition="LPC1769 ARMCC"/>
-        <package name="Embedded" schemaVersion="1.2" supportContact="ferdinand.englberger@unibw.de" url="http://w4s35204/Software%20Projekte%20Dateien/EmbSys_Library" vendor="ETTI4" version="1.5.3"/>
+        <component Cclass="ETTI4" Cgroup="Embedded laboratory" Csub="Revolution measurement" Cvendor="ETTI4" Cversion="4.1.0" condition="LPC1769 ARMCC"/>
+        <package name="Embedded" schemaVersion="1.2" supportContact="ferdinand.englberger@unibw.de" url="http://w4s35204/Software%20Projekte%20Dateien/EmbSys_Library" vendor="ETTI4" version="1.5.4"/>
         <targetInfos>
           <targetInfo name="Debug - Drehzahl"/>
           <targetInfo name="Sim - Drehzahl"/>

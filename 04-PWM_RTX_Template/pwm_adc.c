@@ -27,18 +27,17 @@
 #include "pwmRTX.h"                     // ETTI4::ETTI4:Embedded laboratory:PWM and ADC
 
 #define SIG_ADC_COMPLETE 0x0001
-osThreadId adcThread_ID;
-//osThreadDef(adcThread, osPriorityAboveNormal, 1, 0);
-
+extern osThreadId adcThread_ID;
 extern pwm_t pwmControl;
+extern osSemaphoreId access;
 /**
   * @brief  ADC IRQ-Handler
   */
 void ADC_IRQHandler(void)
 {
-	LPC_ADC->ADCR = LPC_ADC->ADCR & ~(1 << 16); // ADC-Stop
+	LPC_ADC->ADCR = LPC_ADC->ADCR & ~(1 << 16);
 	osSignalSet(adcThread_ID, SIG_ADC_COMPLETE);
-	LPC_ADC->ADDR2; //Reset Pending IRQ
+	LPC_ADC->ADDR2;
 }
 
 /**
@@ -46,13 +45,15 @@ void ADC_IRQHandler(void)
   */
 void initADC(void)
 {
-	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~((3<<14)|(3<<18)))|((1<<14)|(1<<18));
-	LPC_PINCON->PINMODE1 = (LPC_PINCON->PINSEL1 & ~((3<<14)|(3<<18)))|((1<<14)|(1<<18));
-	LPC_ADC->ADCR = 0x00200405;
-	LPC_ADC->ADINTEN = (1<<2);
+	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~((3 << 14) | (3 << 18))) | ((1 << 14) | (1 << 18));
+	LPC_PINCON->PINMODE1 = (LPC_PINCON->PINMODE1 & ~((3 << 14) | (3 << 18))) | ((1 << 14) | (1 << 18));
 	
-	NVIC_SetPriorityGrouping(0);
-	NVIC_SetPriority(ADC_IRQn, 24); //STIMMT NICHT WERT ANPASSEN
+	LPC_ADC->ADCR = 0x00200405;
+	
+	LPC_ADC->ADINTEN = (1 << 2);
+	
+	
+	NVIC_SetPriority(ADC_IRQn, 24);
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	NVIC_EnableIRQ(ADC_IRQn);
 }
@@ -62,7 +63,7 @@ void initADC(void)
   */
 __inline void startADC(void)
 {
-	LPC_ADC->ADCR = LPC_ADC->ADCR | (1<<16);
+	LPC_ADC->ADCR = LPC_ADC->ADCR | (1 << 16);
 }
 
 /**
@@ -72,13 +73,10 @@ __inline void startADC(void)
 void adcThread(void const *argument)
 {
 	pwm_t temp;
-	uint16_t adcCH0;
-	uint16_t adcCH2;
+	uint32_t adcCH0;
+	uint32_t adcCH2;
 	
-	
-	adcThread_ID = osThreadGetId();
 	initADC();
-	
 	initPWM();
 	
     for(;;)
@@ -91,17 +89,17 @@ void adcThread(void const *argument)
 			temp.servo1.advalue = adcCH0;
 			temp.servo2.advalue = adcCH2;
 			
-			temp.servo1.pw = 900 + (adcCH0*1200)/4095;
-			temp.servo2.pw = 900 + (adcCH2*1200)/4095;
+			temp.servo1.pw = 900 + (adcCH0 * 1200) / 4095;
+			temp.servo2.pw = 900 + (adcCH2 * 1200) / 4095; 
+		
+			temp.servo1.arc = 45 - (adcCH0 * 90) / 4095; 		// RUNDUNG & BERECHNUNG
+			temp.servo2.arc = 45 - (adcCH2 * 45) / 2045;		// RUNDUNG & BERECHNUNG	
 			
-			temp.servo1.arc = -45 + (adcCH0*45)/2047;
-			temp.servo2.arc = -45 + (adcCH2*45)/2047;
-			
+			osSemaphoreWait(access, osWaitForever);
 			pwmControl = temp;
-			
+			osSemaphoreRelease(access);
+						
 			setServoPWM(&temp);
-			
-			osDelay(10);
-			
+			osDelay(100);
     }
 }
