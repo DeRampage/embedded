@@ -27,46 +27,13 @@ Project File Date:  11/20/2016
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Sim - Roboterarm'
-compiling RobArmSerMain.c...
-RobArmSerMain.c(53): error:  #29: expected an expression
-     [0].servonr = 
-RV_BASEROT, [0].servotime = SERVOCENTERTIME,
-RobArmSerMain.c(55): error:  #29: expected an expression
-     [0].DispLine = 1, [0].DispCol = 
-RV_TXT_LEFT,
-RobArmSerMain.c(57): error:  #29: expected an expression
-     [1].servonr = 
-RV_BASELIFT, [1].servotime = SERVOCENTERTIME, 
-RobArmSerMain.c(59): error:  #29: expected an expression
-     [1].DispLine = 1, [1].DispCol = 
-RV_TXT_RIGHT,
-RobArmSerMain.c(61): error:  #29: expected an expression
-     [2].servonr = 
-RV_SHOULDER, [2].servotime = SERVOCENTERTIME, 
-RobArmSerMain.c(63): error:  #29: expected an expression
-     [2].DispLine = 2, [2].DispCol = 
-RV_TXT_LEFT,
-RobArmSerMain.c(65): error:  #29: expected an expression
-     [3].servonr = 
-RV_GRIPPLIFT, [3].servotime = SERVOCENTERTIME, 
-RobArmSerMain.c(67): error:  #29: expected an expression
-     [3].DispLine = 2, [3].DispCol = 
-RV_TXT_RIGHT,
-RobArmSerMain.c(69): error:  #29: expected an expression
-     [4].servonr = 
-RV_GRIPPROT, [4].servotime = SERVOCENTERTIME, 
-RobArmSerMain.c(71): error:  #29: expected an expression
-     [4].DispLine = 3, [4].DispCol = 
-RV_TXT_LEFT,
-RobArmSerMain.c(73): error:  #29: expected an expression
-     [5].servonr = 
-RV_GRIPPER, [5].servotime = SERVOCENTERTIME, 
-RobArmSerMain.c(76): error:  #29: expected an expression
-     [5].DispLine = 3, [5].DispCol = 
-RV_TXT_RIGHT
-RobArmSerMain.c: 0 warnings, 12 errors
 compiling anxS20ser.c...
-".\Simulator\obj\RobArmRTX.axf" - 12 Error(s), 0 Warning(s).
+anxS20ser.c(162): warning:  #177-D: variable "count" was declared but never referenced
+  	int32_t count = 0;
+anxS20ser.c: 1 warning, 0 errors
+linking...
+Program Size: Code=14052 RO-data=604 RW-data=188 ZI-data=5076  
+".\Simulator\obj\RobArmRTX.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -87,10 +54,10 @@ Package Vendor: ETTI4
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.ARM_Compiler.1.1.1.pack
-                Keil::Compiler:I/O:STDIN:User:1.1.0
+                Keil::Compiler:I/O:STDOUT:User:1.1.0
                 Keil ARM Compiler extensions
-   * Component: STDIN Variant: User Version: 1.1.0
    * Component: STDOUT Variant: User Version: 1.1.0
+   * Component: STDIN Variant: User Version: 1.1.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.LPC1700_DFP.2.2.0.pack
@@ -115,44 +82,43 @@ Package Vendor: Keil
       Include file:  robarmRTX\includes\robterminal.h
 
    * Component: ETTI4::ETTI4:Embedded laboratory:Configurator:1.4.0
-      Library file:  config\lib\max_II_configurator.lib
       Include file:  config\includes\max_II_configurator.h
+      Library file:  config\lib\max_II_configurator.lib
 
    * Component: ARM::CMSIS:RTOS:Keil RTX:4.80.0
-      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
-      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
-      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
-      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
-      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
+      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
+      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\main.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
+      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
+      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
+      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
 
    * Component: ARM::CMSIS:CORE:4.3.0
 
+   * Component: Keil::Compiler:I/O:STDOUT:User:1.1.0
+      Source file:   Source\retarget_io.c
+      Source file:   Template\stdout_user.c
+      Source file:   Template\stdout_display.c
+      Source file:   Template\stdout_USART.c
+
    * Component: Keil::Compiler:I/O:STDIN:User:1.1.0
-      Source file:   Template\stdin_keyboard.c
       Source file:   Template\stdin_user.c
       Source file:   Source\retarget_io.c
+      Source file:   Template\stdin_keyboard.c
       Source file:   Template\stdin_USART.c
 
-   * Component: Keil::Compiler:I/O:STDOUT:User:1.1.0
-      Source file:   Template\stdout_display.c
-      Source file:   Source\retarget_io.c
-      Source file:   Template\stdout_USART.c
-      Source file:   Template\stdout_user.c
-
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  Device\Include\LPC17xx.h
-      Source file:   Device\Source\ARM\startup_LPC17xx.s
-      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\system_LPC17xx.c
-Target not created.
+      Include file:  Device\Include\LPC17xx.h
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\ARM\startup_LPC17xx.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

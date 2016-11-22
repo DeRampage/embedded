@@ -30,6 +30,7 @@
 #include "anxS20ser.h"
 #include "LPC17xx.h"                    // Device header
 #include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "stdio.h"
 
 #define ANZAHL 5
 /**
@@ -55,11 +56,11 @@ void anxS20init(void)
 	LPC_UART1->DLL = 0x87;
 	LPC_UART1->DLM = 0x01;
 	LPC_UART1->FDR = 0x10;
-	LPC_UART1->LCR = 0x02;
+	LPC_UART1->LCR = 0x03;
 	LPC_UART1->FCR = 0x01;
 	LPC_UART1->IER = 0x1;
 	
-	NVIC_SetPriority(UART1_IRQn, 14);
+	NVIC_SetPriority(UART1_IRQn, 12);
 	NVIC_ClearPendingIRQ(UART1_IRQn);
 	NVIC_EnableIRQ(UART1_IRQn);
 }
@@ -70,7 +71,7 @@ void anxS20init(void)
   */
 void anxS20sendchar(uint32_t ch)
 {	  
-  while((LPC_UART1->LSR & 0x40)){		//Wenn TEMT(Transmitter Empty) 
+ // while((LPC_UART1->LSR & 0x60)){		//Wenn TEMT(Transmitter Empty) 
 		
 		if (ch == '\n') {									//Input LF?	==> Stringeingabe (Feld, etc.)
 	  while(!(LPC_UART1->LSR & 0x20))
@@ -97,7 +98,7 @@ void anxS20sendchar(uint32_t ch)
 	
 	
   LPC_UART1->THR = ch;
-	}
+	//}
 }
 
 
@@ -109,7 +110,7 @@ void anxS20sendchar(uint32_t ch)
 void UART1_IRQHandler(void)
 {
 	uint32_t newdata; 
-	newdata = LPC_UART0->RBR;
+	newdata = LPC_UART1->RBR;
 	osMessagePut(anxS20MsgQ, newdata, 0);
 }
 
@@ -160,6 +161,42 @@ uint32_t anxS20GetByte(void)
 {
 	int32_t count = 0;
 	
+	
+	
+	
+	
+	
+	
+	int32_t transmission[] = {'a', 'x', 97, 128};
+	
+	for (int i = 0; i < 4; i++){
+		
+		for(int j = 0; j < transmission[j]; j++){ //ggf i < 5 // transmission[j]
+			anxS20sendchar(transmission[j]);
+		}
+		//fflush(stdout);
+		
+		if(anxS20getAck() == 1){
+			
+			osEvent anxMsg;
+			anxMsg = osMessageGet(anxS20MsgQ, 0);
+			
+			if(anxMsg.status == osEventMessage){
+				return anxMsg.value.v;
+			}
+			i = 4;
+		}
+		
+	}
+
+	return 999;   
+	
+	
+	
+	
+	
+	
+	/*
 	do{
 		if(anxS20getAck() == 1){
 			
@@ -171,10 +208,12 @@ uint32_t anxS20GetByte(void)
 			}
 			
 		}
+		count++;
 	}	while(count < 4);
 
 	return 999;
- }
+	*/
+}
 
 
 /**
@@ -204,18 +243,21 @@ int32_t anxS20setservopos(uint32_t servo, uint32_t positionus,
 		positionus = minlimit;
 	}
 	
-	int32_t transmission[] = {'a', 'x', 97, servo, positionus};
+	int32_t posHigh = (positionus >> 8) & 0xFF;
+	int32_t posLow = positionus & 0xFF;
+	
+	int32_t transmission[] = {'a', 'x', 97, 3, servo, posHigh, posLow};
 	
 	//do{
 	
 	for (int i = 0; i < 5; i++){
 		
-		for(int j = 0; j < transmission[i]; j++){
+		for(int j = 0; j < transmission[j]; j++){
 			anxS20sendchar(transmission[j]);
 		}
 		
 		if(anxS20getAck() == 1){
-			i = 5;	
+			i = 5;	//vllt?
 			return 1;
 		}
 		
@@ -235,7 +277,22 @@ int32_t anxS20setservopos(uint32_t servo, uint32_t positionus,
   */
 int32_t anxS20setservospeed(uint32_t servo, uint32_t speed)
 {
-    return 0;
+	int32_t transmission[] = {'a', 'x', 97, 2, servo, speed};
+	
+	for (int i = 0; i < 5; i++){
+		
+		for(int j = 0; j < transmission[j]; j++){ //ggf i < 5
+			anxS20sendchar(transmission[j]);
+		}
+		
+		if(anxS20getAck() == 1){
+			i = 5;	//vllt?
+			return 1;
+		}
+		
+	}
+
+	return 0;   
 }
 
 /**
@@ -247,5 +304,21 @@ int32_t anxS20setservospeed(uint32_t servo, uint32_t speed)
   */
 void servotimeUpdate(SrvCtr_t * armsrv_ptr, UpdateDirection direction)
 {
+	if(direction == PWMup){
+		armsrv_ptr->servotime += 5;
+	}else{
+		armsrv_ptr->servotime -= 5;
+	}
 	
+	if(armsrv_ptr->servotime > armsrv_ptr->servomaxlimit){
+		armsrv_ptr->servotime = armsrv_ptr->servomaxlimit;
+	}
+	
+	if(armsrv_ptr->servotime < armsrv_ptr->servominlimit){
+		armsrv_ptr->servotime = armsrv_ptr->servominlimit;
+	}
+	
+	printf("%d", armsrv_ptr->servotime);
+	
+	anxS20setservopos(armsrv_ptr->servonr, armsrv_ptr->servotime, armsrv_ptr->servominlimit, armsrv_ptr->servomaxlimit);
 }

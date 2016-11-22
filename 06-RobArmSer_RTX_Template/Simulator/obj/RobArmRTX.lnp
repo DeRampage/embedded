@@ -1,6 +1,7 @@
 --cpu Cortex-M3
-".\simulator\obj\robterminal.o"
+".\simulator\obj\robarmsermain.o"
 ".\simulator\obj\terminal.o"
+".\simulator\obj\anxs20ser.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
 ".\simulator\obj\rtx_conf_cm.o"
 ".\simulator\obj\retarget_io.o"

@@ -32,17 +32,17 @@
 #define SERVOCENTERTIME 1500  /*!< Servo center pulse width (us)  */
 #define SERVOSTARTMIN   1000  /*!< Servo minimal pulse width (us) */
 #define SERVOSTARTMAX   2000  /*!< Servo maximal pulse width (us) */
-#define SERVOMODTIME    < x >  /*!< Servo adjustment step (us)
+#define SERVOMODTIME   5  /*!< Servo adjustment step (us)
                                     in up/down-routine  */
-#define SRV_BASEROT     < x >  /*!< Servo-Nr. base rotation servo */
-#define SRV_BASELIFT    < x >  /*!< Servo-Nr. base lift servo */
-#define SRV_SHOULDER    < x >  /*!< Servo-Nr. shoulder servo */
-#define SRV_GRIPPLIFT   < x >  /*!< Servo-Nr. gripper lift servo */
-#define SRV_GRIPPROT    < x >  /*!< Servo-Nr. gripper rotation servo */
-#define SRV_GRIPPER     < x >  /*!< Servo-Nr. gripper servo */
+#define SRV_BASEROT     17 /*!< Servo-Nr. base rotation servo */
+#define SRV_BASELIFT    16  /*!< Servo-Nr. base lift servo */
+#define SRV_SHOULDER    15  /*!< Servo-Nr. shoulder servo */
+#define SRV_GRIPPLIFT   14  /*!< Servo-Nr. gripper lift servo */
+#define SRV_GRIPPROT    13  /*!< Servo-Nr. gripper rotation servo */
+#define SRV_GRIPPER     12  /*!< Servo-Nr. gripper servo */
 
-#define SRV_TXT_LEFT    < x >  /*!< text position left  for servo pulse width */
-#define SRV_TXT_RIGHT   < x >  /*!< text position right for servo pulse width */
+#define SRV_TXT_LEFT    12 /*!< text position left  for servo pulse width */
+#define SRV_TXT_RIGHT   32  /*!< text position right for servo pulse width */
 
 #define ANXS20_IIADR  97   /*!< IIC-address of anxS20 servo controller */
 
