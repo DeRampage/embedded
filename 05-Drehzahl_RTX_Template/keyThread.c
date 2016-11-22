@@ -18,7 +18,16 @@
   *           - Template initial version LPC1769
   ******************************************************************************
   */
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "Motkeys.h"                    // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "hexsw.h"                      // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "keythread.h"                  // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "drehzahl.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+#include "rotMotor.h"                   // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 
+
+extern drehzahl_t ActMotorStatus;
+extern osSemaphoreId MotorStatusSem;
 /**
   * @brief  Key thread
   * @details Thread controls all keys and switches
@@ -29,9 +38,64 @@
   */
 void keyThread(void const *argument)
 {
-
-  for(;;)
-  {
+	//E4initHEXSW();
+	initHEXSW();
+	//E4initMotKeysIRQ();
+	initMotKeysIRQ();
+	
+	
+	osEvent signals;
+	
+for(;;){
+	signals = osSignalWait(0, osWaitForever);
+	if(signals.status == osEventSignal){
+		
+		if(signals.value.signals == SIG_KEY_LEFT_RIGHT){
+			if(ActMotorStatus.direction == Right){
+				osSemaphoreWait(MotorStatusSem, osWaitForever);
+				ActMotorStatus.direction = Left;
+				osSemaphoreRelease(MotorStatusSem);
+				setDirection(Left);
+			}else{
+			//if(ActMotorStatus.direction == Left){
+				osSemaphoreWait(MotorStatusSem, osWaitForever);
+				ActMotorStatus.direction = Right;
+				osSemaphoreRelease(MotorStatusSem);
+				setDirection(Right);
+				
+			}
+			osSignalClear(keyThreadID, SIG_KEY_LEFT_RIGHT); //Notwendig?
+		}
+		
+		if(signals.value.signals == SIG_KEY_RUNSTOP){
+			if(ActMotorStatus.status == Stopped){
+				osSemaphoreWait(MotorStatusSem, osWaitForever);
+				ActMotorStatus.status = Run;
+				osSemaphoreRelease(MotorStatusSem);
+			}else{
+			
+			//if(ActMotorStatus.status == Run){
+				osSemaphoreWait(MotorStatusSem, osWaitForever);
+				ActMotorStatus.status = Stopped;
+				osSemaphoreRelease(MotorStatusSem);
+				
+			}
+			//osSignalClear(keyThreadID, SIG_KEY_RUNSTOP);
+			setRunStop(&ActMotorStatus);
+		//	NVIC_ClearPendingIRQ(EINT1_IRQn);
+		
+		}
+		
+		if(signals.value.signals == SIG_KEY_NEWHEX){
+			osSemaphoreWait(MotorStatusSem, osWaitForever);
+			ActMotorStatus.speedstep = getHexSW();
+			//ActMotorStatus.speedstep = E4getHexSW();
+			osSemaphoreRelease(MotorStatusSem);
+			updateSpeed(&ActMotorStatus);
+		}
+	}
+	
+  
 
   } // end for
 }

@@ -10,6 +10,7 @@
       <TargetName>Sim - Drehzahl</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
@@ -457,15 +458,15 @@
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1769</Device>
-          <Vendor>NXP (founded by Philips)</Vendor>
+          <Vendor>NXP</Vendor>
           <PackID>Keil.LPC1700_DFP.2.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x10000000-0x10007FFF) IRAM2(0x2007C000-0x20083FFF) IROM(0-0x7FFFF) CLOCK(12000000) CPUTYPE("Cortex-M3")</Cpu>
+          <Cpu>IRAM(0x10000000,0x8000) IRAM2(0x2007C000,0x8000) IROM(0x00000000,0x80000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
-          <StartupFile>"STARTUP\NXP\LPC17xx\startup_LPC17xx.s" ("NXP LPC17xx Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-O463 -S0 -C0 -FO7 -FD10000000 -FC800 -FN1 -FF0LPC_IAP_512 -FS00 -FL080000)</FlashDriverDll>
-          <DeviceId>5131</DeviceId>
-          <RegisterFile>LPC17xx.H</RegisterFile>
+          <StartupFile></StartupFile>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD10000000 -FCFE0 -FN1 -FF0LPC_IAP_512 -FS00 -FL080000 -FP0($$Device:LPC1769$Flash\LPC_IAP_512.FLM))</FlashDriverDll>
+          <DeviceId>0</DeviceId>
+          <RegisterFile>$$Device:LPC1769$Device\Include\LPC17xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -481,8 +482,8 @@
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>NXP\LPC17xx\</RegisterFilePath>
-          <DBRegisterFilePath>NXP\LPC17xx\</DBRegisterFilePath>
+          <RegisterFilePath></RegisterFilePath>
+          <DBRegisterFilePath></DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -552,11 +553,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments>-MPU</SimDllArguments>
-          <SimDlgDll>DARMP1.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pLPC1769 -dDisplaySim</SimDlgDllArguments>
+          <SimDllArguments>  -MPU</SimDllArguments>
+          <SimDlgDll>DCM.DLL</SimDlgDll>
+          <SimDlgDllArguments>-pCM3</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments>-MPU</TargetDllArguments>
+          <TargetDllArguments> -MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM3</TargetDlgDllArguments>
         </DllOption>
@@ -580,7 +581,7 @@
           </Flash1>
           <bUseTDR>0</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -715,8 +716,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x10000000</StartAddress>
-                <Size>0x5000</Size>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x80000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -740,8 +741,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x10005000</StartAddress>
-                <Size>0x3000</Size>
+                <StartAddress>0x10000000</StartAddress>
+                <Size>0x8000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -959,8 +960,8 @@
     <files>
       <file attr="config" category="source" name="CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c" version="4.74.0">
         <instance index="0">RTE\CMSIS\RTX_Conf_CM.c</instance>
-        <component Capiversion="1.0" Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.81.0" condition="RTOS RTX"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.0.0-Beta12"/>
+        <component Cclass="CMSIS" Cgroup="RTOS" Csub="Keil RTX" Cvendor="ARM" Cversion="4.80.0" condition="Cortex-M Device Startup"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
         <targetInfos>
           <targetInfo name="Debug - Drehzahl" versionMatchMode="any"/>
           <targetInfo name="Sim - Drehzahl" versionMatchMode="any"/>
@@ -1001,8 +1002,8 @@
       </file>
       <file attr="config" category="doc" name="revolutionRTX\DrehzahlRTX.ini" version="4.0.0">
         <instance index="0">RTE\ETTI4\LPC1769\DrehzahlRTX.ini</instance>
-        <component Cclass="ETTI4" Cgroup="Embedded laboratory" Csub="Revolution measurement" Cvendor="ETTI4" Cversion="4.1.0" condition="LPC1769 ARMCC"/>
-        <package name="Embedded" schemaVersion="1.2" supportContact="ferdinand.englberger@unibw.de" url="http://w4s35204/Software%20Projekte%20Dateien/EmbSys_Library" vendor="ETTI4" version="1.5.4"/>
+        <component Cclass="ETTI4" Cgroup="Embedded laboratory" Csub="Revolution measurement" Cvendor="ETTI4" Cversion="4.0.0" condition="LPC1769 ARMCC"/>
+        <package name="Embedded" schemaVersion="1.2" supportContact="ferdinand.englberger@unibw.de" url="http://w4s35204/Software%20Projekte%20Dateien/EmbSys_Library" vendor="ETTI4" version="1.5.3"/>
         <targetInfos>
           <targetInfo name="Debug - Drehzahl"/>
           <targetInfo name="Sim - Drehzahl"/>

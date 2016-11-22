@@ -22,12 +22,26 @@
   */
 #include "hexsw.h" // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 
+#include "keythread.h"                  // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
+uint32_t test;		//NUR ZUM DEBUGGEN
+extern osThreadId keyThreadID;
 /**
   * @brief Function to initialize HW to read Hex switches
   */
 void initHEXSW(void)
 {
+	LPC_PINCON->PINSEL0 = LPC_PINCON->PINSEL0 & ~((3 << 8) | (3 << 10) | (3 << 12) | (3 << 14));
+	LPC_PINCON->PINMODE0 = LPC_PINCON->PINMODE0 & ~((3 << 8) | (3 << 10) | (3 << 12) | (3 << 14));
+	
+	LPC_GPIO0->FIODIR = LPC_GPIO0->FIODIR & ~(0xF << 4);
 
+	LPC_GPIOINT->IO0IntEnF = LPC_GPIOINT->IO0IntEnF | 0xF0;
+	LPC_GPIOINT->IO0IntEnR = LPC_GPIOINT->IO0IntEnR | 0xF0;
+	LPC_GPIOINT->IO0IntClr = 0xF0;
+	
+	NVIC_SetPriority(EINT3_IRQn, 22);
+	NVIC_ClearPendingIRQ(EINT3_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
 }
 
 /**
@@ -36,13 +50,18 @@ void initHEXSW(void)
   */
 uint32_t getHexSW(void)
 {
-   
+	//uint32_t test;
+	//test = (~(LPC_GPIO0->FIOPIN >> 4)) & 0xF;
+  //return test; //~((LPC_GPIO0->FIOPIN >> 4) & 0xF);
+	
+	return (~(LPC_GPIO0->FIOPIN >> 4)) & 0xF;
 }
 
 /**
   * @brief IRQ-Handler for value change of Hex switch
   */
-void ____HexChange____IRQHandler(void)
+void EINT3_IRQHandler(void)
 {  
-
+	osSignalSet(keyThreadID, SIG_KEY_NEWHEX);
+	LPC_GPIOINT->IO0IntClr = 0xF0;
 }

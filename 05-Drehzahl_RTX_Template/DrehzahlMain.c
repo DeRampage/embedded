@@ -48,15 +48,16 @@ osSemaphoreDef(MotorStatusSem);
 osThreadDef(RotSensorThread, osPriorityHigh, 1, 0);
 osThreadId RotSensorThreadID;													
 													
-//void keyThread(void const* argument);
-void E4keyThread(void const* argument);
 
-													
-//osThreadDef(keyThread, osPriorityNormal, 1, 0);
-//osThreadId keyThreadID;													
+//void E4keyThread(void const* argument);
+//osThreadDef(E4keyThread, osPriorityNormal, 1, 0);
+//osThreadId keyThreadID;		
 
-osThreadDef(E4keyThread, osPriorityNormal, 1, 0);
+void keyThread(void const* argument);													
+osThreadDef(keyThread, osPriorityNormal, 1, 0);
 osThreadId keyThreadID;													
+
+											
 	
 int32_t main(void)
 {    
@@ -67,25 +68,26 @@ int32_t main(void)
 	
 	NVIC_SetPriorityGrouping(0);
 	
-	E4initHEXSW();
-	//initHEXSW();
+	//E4initHEXSW();
+	initHEXSW();
 	
-	uint32_t temp = E4getHexSW();
+	//uint32_t temp = E4getHexSW();
 	//getHexSW();
-	
+	uint32_t temp = getHexSW();
   
 	ActMotorStatus.status = Stopped;
-	ActMotorStatus.direction = Right;
+	//ActMotorStatus.direction = Right;
+	ActMotorStatus.direction = Left;
 	ActMotorStatus.speedstep = temp;
 	ActMotorStatus.drehzahl = 0;
 	
 	oldStatus.status = Run;
-	oldStatus.direction = Left;
+	oldStatus.direction = Right;
 	oldStatus.speedstep = 23;
 	oldStatus.drehzahl = 10;
 	
-	E4initMotor(&ActMotorStatus); 
-	//initMotor(&ActMotorStatus); 
+	//E4initMotor(&ActMotorStatus); 
+	initMotor(&ActMotorStatus); 
 	
 	initETTI4display(&motDisp);
 	clearETTI4display(&motDisp);
@@ -94,7 +96,7 @@ int32_t main(void)
 			   "    Experiment \n"
 				 "    Motor Test\n");
 	
-  osDelay(2000);
+  osDelay(20);//2000
 	
 	clearETTI4display(&motDisp);
 	
@@ -104,8 +106,8 @@ int32_t main(void)
 					 "Rotation:      Hz   \n");
 	MotorStatusSem = osSemaphoreCreate(osSemaphore(MotorStatusSem), 1);
 	
-	//keyThreadID = osThreadCreate(osThread(keyThread), NULL);
-	keyThreadID = osThreadCreate(osThread(E4keyThread), NULL);
+	keyThreadID = osThreadCreate(osThread(keyThread), NULL);
+	//keyThreadID = osThreadCreate(osThread(E4keyThread), NULL);
 	
 	RotSensorThreadID = osThreadCreate(osThread(RotSensorThread), NULL);
 	
@@ -115,7 +117,7 @@ int32_t main(void)
 	
     for(;;)
     {
-				osDelay(250);
+				osDelay(2); //250
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				newStatus = ActMotorStatus;
 				osSemaphoreRelease(MotorStatusSem);

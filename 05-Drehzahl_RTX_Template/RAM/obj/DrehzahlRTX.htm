@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\RAM\obj\DrehzahlRTX.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\RAM\obj\DrehzahlRTX.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Nov 14 15:59:42 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Fri Nov 18 16:31:24 2016
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -82,7 +82,7 @@ Function Pointers
  <LI><a href="#[52]">__main</a> from __main.o(!!!main) referenced from startup_lpc17xx.o(.text)
  <LI><a href="#[3d]">_fputc$unlocked</a> from fputc.o(i.fputc) referenced from _printf_char_file_locked.o(.text)
  <LI><a href="#[3c]">_printf_input_char</a> from _printf_char_common.o(.text) referenced from _printf_char_common.o(.text)
- <LI><a href="#[51]">main</a> from drehzahlmain.o(.text) referenced from rtx_conf_cm.o(.constdata)
+ <LI><a href="#[51]">main</a> from drehzahlmain.o(.text) referenced from rtx_conf_cm.o(.data)
  <LI><a href="#[4e]">osThreadExit</a> from rt_cmsis.o(i.osThreadExit) referenced from rt_cmsis.o(i.svcThreadCreate)
  <LI><a href="#[4d]">os_idle_demon</a> from rtx_conf_cm.o(.text) referenced from rt_task.o(i.rt_sys_init)
  <LI><a href="#[36]">rt_alloc_box</a> from rt_membox.o(i.rt_alloc_box) referenced from hal_cm3.o(.emb_text)
@@ -331,40 +331,67 @@ Global Symbols
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_systick
 </UL>
 
-<P><STRONG><a name="[136]"></a>_maybe_terminate_alloc</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, maybetermalloc1.o(.emb_text), UNUSED)
+<P><STRONG><a name="[136]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[bf]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[137]"></a>_maybe_terminate_alloc</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, maybetermalloc1.o(.emb_text), UNUSED)
+
+<P><STRONG><a name="[78]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, noretval__2printf.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
+</UL>
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[138]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[7]"></a>__rt_heap_escrow</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[6]"></a>__rt_heap_expand</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[139]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[13a]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[51]"></a>main</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, drehzahlmain.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248 + Unknown Stack Size
 <LI>Call Chain = main &rArr; initETTI4display &rArr; initHorbarETTI4display &rArr; LCDsetUserChar &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadSetPriority
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
+<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadSetPriority
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadCreate
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreCreate
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;doMaxIIconfig
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotor
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initHEXSW
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4getHexSW
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreCreate
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;doMaxIIconfig
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotor
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initHEXSW
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4getHexSW
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> rtx_conf_cm.o(.constdata)
+<BR>[Address Reference Count : 1]<UL><LI> rtx_conf_cm.o(.data)
 </UL>
 <P><STRONG><a name="[14]"></a>TIMER0_IRQHandler</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, rotationsensor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = TIMER0_IRQHandler &rArr; osMessagePut &rArr; isrMessagePut &rArr; isr_mbx_send &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessagePut
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessagePut
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[87]"></a>initSensor</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, rotationsensor.o(.text))
+<P><STRONG><a name="[88]"></a>initSensor</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, rotationsensor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = initSensor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RotSensorThread
@@ -373,11 +400,11 @@ Global Symbols
 <P><STRONG><a name="[4f]"></a>RotSensorThread</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, rotationsensor.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = RotSensorThread &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageCreate
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSensor
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageCreate
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSensor
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> drehzahlmain.o(.constdata)
 </UL>
@@ -394,7 +421,7 @@ Global Symbols
 <P><STRONG><a name="[54]"></a>__user_perthread_libspace</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, rtx_conf_cm.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __user_perthread_libspace
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tsk_self
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tsk_self
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
@@ -402,7 +429,7 @@ Global Symbols
 <P><STRONG><a name="[55]"></a>_mutex_initialize</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, rtx_conf_cm.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _mutex_initialize
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_mut_init
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_mut_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fopen$locked
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
@@ -416,9 +443,9 @@ Global Symbols
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
 </UL>
 
@@ -429,16 +456,16 @@ Global Symbols
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
+<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
 </UL>
 
-<P><STRONG><a name="[8c]"></a>_sys_open</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, retarget_io.o(.text))
+<P><STRONG><a name="[8d]"></a>_sys_open</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, retarget_io.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _sys_open
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 </UL>
@@ -447,15 +474,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
 </UL>
 
-<P><STRONG><a name="[8e]"></a>_sys_write</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, retarget_io.o(.text))
+<P><STRONG><a name="[8f]"></a>_sys_write</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, retarget_io.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
 </UL>
 
-<P><STRONG><a name="[137]"></a>_sys_read</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, retarget_io.o(.text), UNUSED)
+<P><STRONG><a name="[13b]"></a>_sys_read</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, retarget_io.o(.text), UNUSED)
 
 <P><STRONG><a name="[a8]"></a>_sys_istty</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, retarget_io.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
@@ -617,42 +644,42 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[90]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 408 bytes, Stack size 32 bytes, system_lpc17xx.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
+<P><STRONG><a name="[91]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 408 bytes, Stack size 32 bytes, system_lpc17xx.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
 <P><STRONG><a name="[3a]"></a>SystemInit</STRONG> (Thumb, 318 bytes, Stack size 0 bytes, system_lpc17xx.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(.text)
 </UL>
-<P><STRONG><a name="[78]"></a>doMaxIIconfig</STRONG> (Thumb, 268 bytes, Stack size 20 bytes, max_ii_configurator.o(.text))
+<P><STRONG><a name="[7a]"></a>doMaxIIconfig</STRONG> (Thumb, 268 bytes, Stack size 20 bytes, max_ii_configurator.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = doMaxIIconfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7b]"></a>E4initMotor</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, rotmotor.o(.text))
+<P><STRONG><a name="[7d]"></a>E4initMotor</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, rotmotor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[96]"></a>E4setDirection</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rotmotor.o(.text))
+<P><STRONG><a name="[9a]"></a>E4setDirection</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rotmotor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 </UL>
 
-<P><STRONG><a name="[95]"></a>E4setRunStop</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, rotmotor.o(.text))
+<P><STRONG><a name="[99]"></a>E4setRunStop</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, rotmotor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 </UL>
 
-<P><STRONG><a name="[97]"></a>E4updateSpeed</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, rotmotor.o(.text))
+<P><STRONG><a name="[9b]"></a>E4updateSpeed</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, rotmotor.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 </UL>
 
-<P><STRONG><a name="[79]"></a>E4initHEXSW</STRONG> (Thumb, 158 bytes, Stack size 8 bytes, hexsw.o(.text))
+<P><STRONG><a name="[7b]"></a>E4initHEXSW</STRONG> (Thumb, 158 bytes, Stack size 8 bytes, hexsw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = E4initHEXSW
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7a]"></a>E4getHexSW</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, hexsw.o(.text))
+<P><STRONG><a name="[7c]"></a>E4getHexSW</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, hexsw.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -660,81 +687,64 @@ Global Symbols
 <P><STRONG><a name="[28]"></a>EINT3_IRQHandler</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, hexsw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = EINT3_IRQHandler &rArr; osSignalSet &rArr; isrSignalSet &rArr; isr_evt_set &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[50]"></a>E4keyThread</STRONG> (Thumb, 188 bytes, Stack size 16 bytes, keythread.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = E4keyThread &rArr; osSemaphoreRelease &rArr; isrSemaphoreRelease &rArr; isr_sem_send &rArr; rt_psq_enq
-</UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4getHexSW
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateSpeed
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4setRunStop
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4setDirection
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> drehzahlmain.o(.constdata)
-</UL>
-<P><STRONG><a name="[85]"></a>E4updateDisplay</STRONG> (Thumb, 194 bytes, Stack size 32 bytes, rotationdisplay.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
-<LI>Call Chain = E4updateDisplay &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
-</UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
-</UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
 <P><STRONG><a name="[26]"></a>EINT1_IRQHandler</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, motkeys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = EINT1_IRQHandler &rArr; osSignalSet &rArr; isrSignalSet &rArr; isr_evt_set &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
 <P><STRONG><a name="[27]"></a>EINT2_IRQHandler</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, motkeys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = EINT2_IRQHandler &rArr; osSignalSet &rArr; isrSignalSet &rArr; isr_evt_set &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[93]"></a>E4initMotKeysIRQ</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, motkeys.o(.text))
+<P><STRONG><a name="[94]"></a>E4initMotKeysIRQ</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, motkeys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = E4initMotKeysIRQ &rArr; NVIC_SetPriority
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_ClearPendingIRQ
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetPriority
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_ClearPendingIRQ
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetPriority
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 </UL>
 
-<P><STRONG><a name="[138]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
-
-<P><STRONG><a name="[bf]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+<P><STRONG><a name="[50]"></a>E4keyThread</STRONG> (Thumb, 188 bytes, Stack size 16 bytes, keythread.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = E4keyThread &rArr; osSemaphoreRelease &rArr; isrSemaphoreRelease &rArr; isr_sem_send &rArr; rt_psq_enq
+</UL>
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreWait
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4getHexSW
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateSpeed
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4setRunStop
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4setDirection
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> drehzahlmain.o(.constdata)
+</UL>
+<P><STRONG><a name="[86]"></a>E4updateDisplay</STRONG> (Thumb, 194 bytes, Stack size 32 bytes, rotationdisplay.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
+<LI>Call Chain = E4updateDisplay &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+</UL>
+<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[91]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
+<P><STRONG><a name="[92]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
 </UL>
 
-<P><STRONG><a name="[139]"></a>_ll_udiv</STRONG> (Thumb, 238 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
-
-<P><STRONG><a name="[7e]"></a>__2printf</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, noretval__2printf.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
-<LI>Call Chain = __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
-</UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
-</UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
+<P><STRONG><a name="[13c]"></a>_ll_udiv</STRONG> (Thumb, 238 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
 
 <P><STRONG><a name="[a6]"></a>_printf_pre_padding</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, _printf_pad.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _printf_pre_padding
@@ -774,20 +784,20 @@ Global Symbols
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 </UL>
 
-<P><STRONG><a name="[99]"></a>fflush</STRONG> (Thumb, 60 bytes, Stack size 24 bytes, fflush_locked.o(.text))
+<P><STRONG><a name="[9d]"></a>fflush</STRONG> (Thumb, 60 bytes, Stack size 24 bytes, fflush_locked.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initHorbarETTI4display
 </UL>
 
@@ -801,15 +811,9 @@ Global Symbols
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[8d]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
+<P><STRONG><a name="[8e]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 </UL>
-
-<P><STRONG><a name="[13a]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
-
-<P><STRONG><a name="[7]"></a>__rt_heap_escrow</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
-
-<P><STRONG><a name="[6]"></a>__rt_heap_expand</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[9e]"></a>_printf_int_common</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, _printf_intcommon.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _printf_int_common &rArr; _printf_post_padding
@@ -832,7 +836,7 @@ Global Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 </UL>
 
-<P><STRONG><a name="[13b]"></a>fseek</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, fseek.o(.text), UNUSED)
+<P><STRONG><a name="[13d]"></a>fseek</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, fseek.o(.text), UNUSED)
 
 <P><STRONG><a name="[ab]"></a>_seterr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stdio.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
@@ -844,7 +848,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_seek
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_seterr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
@@ -916,7 +920,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
+<BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
 
 <P><STRONG><a name="[a9]"></a>_ftell_internal</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, ftell.o(.text))
@@ -927,7 +931,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 </UL>
 
-<P><STRONG><a name="[13c]"></a>ftell</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, ftell.o(.text), UNUSED)
+<P><STRONG><a name="[13e]"></a>ftell</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, ftell.o(.text), UNUSED)
 
 <P><STRONG><a name="[b3]"></a>_fclose_internal</STRONG> (Thumb, 76 bytes, Stack size 32 bytes, fclose.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = _fclose_internal &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
@@ -941,7 +945,7 @@ Global Symbols
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
-<P><STRONG><a name="[13d]"></a>fclose</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, fclose.o(.text), UNUSED)
+<P><STRONG><a name="[13f]"></a>fclose</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, fclose.o(.text), UNUSED)
 
 <P><STRONG><a name="[b2]"></a>setvbuf</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, setvbuf_locked.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = setvbuf
@@ -988,11 +992,11 @@ Global Symbols
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
-<P><STRONG><a name="[13e]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[140]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[13f]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[141]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[140]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[142]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
 
 <P><STRONG><a name="[6f]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
@@ -1027,13 +1031,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ftell_internal
 </UL>
 
-<P><STRONG><a name="[141]"></a>__errno$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
+<P><STRONG><a name="[143]"></a>__errno$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
 
-<P><STRONG><a name="[142]"></a>__rt_errno_addr$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
+<P><STRONG><a name="[144]"></a>__rt_errno_addr$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
 
-<P><STRONG><a name="[143]"></a>__use_no_heap</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
+<P><STRONG><a name="[145]"></a>__use_no_heap</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
 
-<P><STRONG><a name="[144]"></a>__heap$guard</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
+<P><STRONG><a name="[146]"></a>__heap$guard</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
 
 <P><STRONG><a name="[5]"></a>_terminate_user_alloc</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, init_alloc.o(.text), UNUSED)
 
@@ -1092,7 +1096,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fputc$unlocked
 </UL>
 
-<P><STRONG><a name="[145]"></a>__flsbuf_wide</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, flsbuf.o(.text), UNUSED)
+<P><STRONG><a name="[147]"></a>__flsbuf_wide</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, flsbuf.o(.text), UNUSED)
 
 <P><STRONG><a name="[be]"></a>__sig_exit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, defsig_exit.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
@@ -1108,10 +1112,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
 </UL>
-
-<P><STRONG><a name="[146]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
-
-<P><STRONG><a name="[147]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[c5]"></a>__Heap_Initialize</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, h1_init_mt.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __Heap_Initialize &rArr; _mutex_initialize
@@ -1134,7 +1134,7 @@ Global Symbols
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Full
 </UL>
 
-<P><STRONG><a name="[9d]"></a>_printf_char_file</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, _printf_char_file_locked.o(.text))
+<P><STRONG><a name="[79]"></a>_printf_char_file</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, _printf_char_file_locked.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1142,7 +1142,7 @@ Global Symbols
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 
 <P><STRONG><a name="[c9]"></a>__default_signal_display</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, defsig_general.o(.text))
@@ -1181,7 +1181,7 @@ Global Symbols
 <P><STRONG><a name="[cc]"></a>LCDsetUserChar</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, embsysarmdisp.o(i.LCDsetUserChar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = LCDsetUserChar &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd
 </UL>
@@ -1202,7 +1202,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
 </UL>
 
 <P><STRONG><a name="[fe]"></a>_init_box</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, rt_membox.o(i._init_box))
@@ -1215,16 +1215,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 
-<P><STRONG><a name="[7d]"></a>clearETTI4display</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, embsysarmdisp.o(i.clearETTI4display))
+<P><STRONG><a name="[7f]"></a>clearETTI4display</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, embsysarmdisp.o(i.clearETTI4display))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = clearETTI4display &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1248,12 +1248,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> _printf_char_file_locked.o(.text)
 </UL>
-<P><STRONG><a name="[7c]"></a>initETTI4display</STRONG> (Thumb, 596 bytes, Stack size 8 bytes, embsysarmdisp.o(i.initETTI4display))
+<P><STRONG><a name="[7e]"></a>initETTI4display</STRONG> (Thumb, 596 bytes, Stack size 8 bytes, embsysarmdisp.o(i.initETTI4display))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = initETTI4display &rArr; initHorbarETTI4display &rArr; LCDsetUserChar &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initHorbarETTI4display
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDwriteCmd4
@@ -1265,12 +1265,12 @@ Global Symbols
 <P><STRONG><a name="[d3]"></a>initHorbarETTI4display</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, embsysarmdisp.o(i.initHorbarETTI4display))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = initHorbarETTI4display &rArr; LCDsetUserChar &rArr; setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDsetUserChar
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
 </UL>
 
 <P><STRONG><a name="[d4]"></a>isrMessageGet</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, rt_cmsis.o(i.isrMessageGet))
@@ -1278,7 +1278,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_mbx_receive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
 </UL>
 
 <P><STRONG><a name="[d6]"></a>isrMessagePut</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, rt_cmsis.o(i.isrMessagePut))
@@ -1287,7 +1287,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_mbx_check
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_mbx_send
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessagePut
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessagePut
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sysTimerTick
 </UL>
 
@@ -1297,7 +1297,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_id2obj
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_sem_send
 </UL>
-<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
 </UL>
 
 <P><STRONG><a name="[dc]"></a>isrSignalSet</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, rt_cmsis.o(i.isrSignalSet))
@@ -1306,7 +1306,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tid2ptcb
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_evt_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalSet
 </UL>
 
 <P><STRONG><a name="[de]"></a>isr_evt_set</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, rt_event.o(i.isr_evt_set))
@@ -1318,7 +1318,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrSignalSet
 </UL>
 
-<P><STRONG><a name="[d5]"></a>isr_mbx_receive</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, rt_mailbox.o(i.isr_mbx_receive))
+<P><STRONG><a name="[d5]"></a>isr_mbx_receive</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, rt_mailbox.o(i.isr_mbx_receive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = isr_mbx_receive &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_psq_enq
@@ -1350,10 +1350,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDsetUserChar
 </UL>
 
@@ -1362,11 +1362,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDsetUserChar
 </UL>
 
-<P><STRONG><a name="[7f]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
+<P><STRONG><a name="[80]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1384,7 +1384,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_lib_init
 </UL>
 
-<P><STRONG><a name="[88]"></a>osMessageCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessageCreate))
+<P><STRONG><a name="[89]"></a>osMessageCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessageCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osMessageCreate &rArr; svcMessageCreate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcMessageCreate
@@ -1392,7 +1392,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RotSensorThread
 </UL>
 
-<P><STRONG><a name="[89]"></a>osMessageGet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessageGet))
+<P><STRONG><a name="[8a]"></a>osMessageGet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessageGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessageGet
@@ -1400,7 +1400,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RotSensorThread
 </UL>
 
-<P><STRONG><a name="[86]"></a>osMessagePut</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessagePut))
+<P><STRONG><a name="[87]"></a>osMessagePut</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osMessagePut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osMessagePut &rArr; isrMessagePut &rArr; isr_mbx_send &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessagePut
@@ -1408,7 +1408,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[80]"></a>osSemaphoreCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreCreate))
+<P><STRONG><a name="[81]"></a>osSemaphoreCreate</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osSemaphoreCreate &rArr; svcSemaphoreCreate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcSemaphoreCreate
@@ -1416,7 +1416,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[84]"></a>osSemaphoreRelease</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreRelease))
+<P><STRONG><a name="[85]"></a>osSemaphoreRelease</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = osSemaphoreRelease &rArr; isrSemaphoreRelease &rArr; isr_sem_send &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrSemaphoreRelease
@@ -1426,13 +1426,13 @@ Global Symbols
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[83]"></a>osSemaphoreWait</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreWait))
+<P><STRONG><a name="[84]"></a>osSemaphoreWait</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSemaphoreWait))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RotSensorThread
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[92]"></a>osSignalSet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalSet))
+<P><STRONG><a name="[93]"></a>osSignalSet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osSignalSet &rArr; isrSignalSet &rArr; isr_evt_set &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrSignalSet
@@ -1442,7 +1442,7 @@ Global Symbols
 <LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[94]"></a>osSignalWait</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalWait))
+<P><STRONG><a name="[98]"></a>osSignalWait</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalWait))
 <BR><BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4keyThread
 </UL>
 
@@ -1458,11 +1458,11 @@ Global Symbols
 <P><STRONG><a name="[4e]"></a>osThreadExit</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadExit))
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.svcThreadCreate)
 </UL>
-<P><STRONG><a name="[81]"></a>osThreadGetId</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadGetId))
+<P><STRONG><a name="[82]"></a>osThreadGetId</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadGetId))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[82]"></a>osThreadSetPriority</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadSetPriority))
+<P><STRONG><a name="[83]"></a>osThreadSetPriority</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadSetPriority))
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1664,7 +1664,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcMessageGet
 </UL>
 
-<P><STRONG><a name="[8b]"></a>rt_mut_init</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rt_mutex.o(i.rt_mut_init))
+<P><STRONG><a name="[8c]"></a>rt_mut_init</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rt_mutex.o(i.rt_mut_init))
 <BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 </UL>
 
@@ -1920,34 +1920,34 @@ Global Symbols
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcKernelStart
 </UL>
 
-<P><STRONG><a name="[8a]"></a>rt_tsk_self</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, rt_task.o(i.rt_tsk_self))
+<P><STRONG><a name="[8b]"></a>rt_tsk_self</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, rt_task.o(i.rt_tsk_self))
 <BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcThreadGetId
 </UL>
 
-<P><STRONG><a name="[98]"></a>setPosETTI4display</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, embsysarmdisp.o(i.setPosETTI4display))
+<P><STRONG><a name="[9c]"></a>setPosETTI4display</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, embsysarmdisp.o(i.setPosETTI4display))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = setPosETTI4display &rArr; fflush &rArr; _do_fflush &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4updateDisplay
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDsetUserChar
 </UL>
 
-<P><STRONG><a name="[8f]"></a>stdout_putchar</STRONG> (Thumb, 262 bytes, Stack size 8 bytes, embsysarmdisp.o(i.stdout_putchar))
+<P><STRONG><a name="[90]"></a>stdout_putchar</STRONG> (Thumb, 262 bytes, Stack size 8 bytes, embsysarmdisp.o(i.stdout_putchar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initHorbarETTI4display
 </UL>
 
@@ -1984,7 +1984,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_mbx_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageCreate
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageCreate
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcKernelInitialize
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.osMessageCreate)
@@ -2010,7 +2010,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_sem_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreCreate
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreCreate
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.osSemaphoreCreate)
 </UL>
@@ -2062,7 +2062,7 @@ Global Symbols
 <P><STRONG><a name="[4a]"></a>svcThreadGetId</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, rt_cmsis.o(i.svcThreadGetId))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = svcThreadGetId
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tsk_self
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tsk_self
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> rt_cmsis.o(i.osThreadExit)
 <LI> rt_cmsis.o(i.osThreadGetId)
@@ -2135,26 +2135,26 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[d0]"></a>delay</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, embsysarmdisp.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
+<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initETTI4display
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearETTI4display
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setPosETTI4display
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initHorbarETTI4display
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDwriteCmd4
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDwrite
 </UL>
 
-<P><STRONG><a name="[9a]"></a>NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, motkeys.o(.text))
+<P><STRONG><a name="[95]"></a>NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, motkeys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = NVIC_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
+<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
 </UL>
 
-<P><STRONG><a name="[9c]"></a>NVIC_EnableIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, motkeys.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
+<P><STRONG><a name="[97]"></a>NVIC_EnableIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, motkeys.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
 </UL>
 
-<P><STRONG><a name="[9b]"></a>NVIC_ClearPendingIRQ</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, motkeys.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
+<P><STRONG><a name="[96]"></a>NVIC_ClearPendingIRQ</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, motkeys.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;E4initMotKeysIRQ
 </UL>
 
 <P><STRONG><a name="[3c]"></a>_printf_input_char</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _printf_char_common.o(.text))
@@ -2163,7 +2163,7 @@ Local Symbols
 <P><STRONG><a name="[ba]"></a>_freopen_locked</STRONG> (Thumb, 174 bytes, Stack size 32 bytes, fopen_locked.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = _freopen_locked &rArr; _fclose_internal &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; stdout_putchar &rArr; lcd_write_data &rArr; LCDwrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
