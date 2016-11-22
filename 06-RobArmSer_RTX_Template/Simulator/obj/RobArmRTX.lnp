@@ -1,0 +1,13 @@
+--cpu Cortex-M3
+".\simulator\obj\robterminal.o"
+".\simulator\obj\terminal.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib"
+".\simulator\obj\rtx_conf_cm.o"
+".\simulator\obj\retarget_io.o"
+".\simulator\obj\startup_lpc17xx.o"
+".\simulator\obj\system_lpc17xx.o"
+"C:\Keil_v5\ARM\PACK\ETTI4\Embedded\1.5.3\config\lib\max_II_configurator.lib"
+--strict --scatter ".\Simulator\obj\RobArmRTX.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Simulator\lst\RobArmRTX.map" -o .\Simulator\obj\RobArmRTX.axf

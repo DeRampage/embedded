@@ -29,9 +29,9 @@
 #define __ANXS20_SER_H__
 #include <stdint.h>
 
-#define SERVOCENTERTIME < x >  /*!< Servo center pulse width (us)  */
-#define SERVOSTARTMIN   < x >  /*!< Servo minimal pulse width (us) */
-#define SERVOSTARTMAX   < x >  /*!< Servo maximal pulse width (us) */
+#define SERVOCENTERTIME 1500  /*!< Servo center pulse width (us)  */
+#define SERVOSTARTMIN   1000  /*!< Servo minimal pulse width (us) */
+#define SERVOSTARTMAX   2000  /*!< Servo maximal pulse width (us) */
 #define SERVOMODTIME    < x >  /*!< Servo adjustment step (us)
                                     in up/down-routine  */
 #define SRV_BASEROT     < x >  /*!< Servo-Nr. base rotation servo */

@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'RobArmRTX' 
- * Target:  'Sim - Terminal' 
+ * Target:  'Sim - Roboterarm' 
  */
 
 #ifndef RTE_COMPONENTS_H

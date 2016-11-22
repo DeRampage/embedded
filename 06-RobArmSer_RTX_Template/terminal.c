@@ -26,14 +26,48 @@
   *           - Template 1769 2011
   ******************************************************************************
   */
+#include "stdint.h"
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
+#include "LPC17xx.h"                    // Device header
+#include "robterminal.h"                // ETTI4::ETTI4:Embedded laboratory:Robotic arm
+#include "stdio.h"
+#include "stdlib.h"
 
+#define ANZAHL 8
 
+osMessageQDef(STDINmsgQ, ANZAHL, uint32_t);
+osMessageQId STDINmsgQ;
+
+osSemaphoreDef(STDOUTsem);
+osSemaphoreId STDOUTsem;
+
+osSemaphoreDef(STDINsem);
+osSemaphoreId STDINsem;
 /**
   * @brief  Function to initialize the terminal interface
   * @details UART0, 19200 Baud, 8, n, 1
   */
 void TRMinit(void)
 {
+	STDINmsgQ = osMessageCreate(osMessageQ(STDINmsgQ), NULL);
+	STDOUTsem = osSemaphoreCreate(osSemaphore(STDOUTsem), 1);
+	STDINsem = osSemaphoreCreate(osSemaphore(STDINsem), 1);
+	
+	LPC_PINCON->PINSEL0 = (LPC_PINCON->PINSEL0 & ~((3<<6)|(3<<4))) | ((1<<6)|(1<<4));
+	LPC_PINCON->PINMODE0 = LPC_PINCON->PINMODE0 & ~((3<<6)|(3<<4));
+	LPC_PINCON->PINMODE_OD0 &= ~(1<<2);
+	
+	LPC_UART0->LCR = 0x80;
+	LPC_UART0->DLL = 0xC3;
+	LPC_UART0->DLM = 0x00;
+	LPC_UART0->FDR = 0x10;
+	LPC_UART0->LCR = 0x03;
+	LPC_UART0->FCR = 0x01;
+	LPC_UART0->IER = 0x1;
+	
+	NVIC_SetPriority(UART0_IRQn, 14);
+	NVIC_ClearPendingIRQ(UART0_IRQn);
+	NVIC_EnableIRQ(UART0_IRQn);
 
 }
 
@@ -43,8 +77,33 @@ void TRMinit(void)
   * @retval int : transmitted character
   */
 int32_t stdout_putchar(int32_t ch)
-{
-
+{	
+  if (ch == '\n') {									//Input LF?	==> Stringeingabe (Feld, etc.)
+	  while(!(LPC_UART0->LSR & 0x20))
+		{
+     osThreadYield();
+    }
+	  LPC_UART0->THR = 0x0D; 					//Output CR
+  }
+  
+	
+	if (ch == 0x0D) {									//Input CR? ==> Tastatureingeabe
+    while(!(LPC_UART0->LSR & 0x20))
+		{
+     osThreadYield();
+    }
+		LPC_UART0->THR = 0x0A; 					//Output LF
+  }
+	
+	
+	while(!(LPC_UART0->LSR & 0x20))
+	{
+   osThreadYield();
+  }
+	
+	
+  LPC_UART0->THR = ch;
+  return (ch);
 }
 
 
@@ -53,7 +112,7 @@ int32_t stdout_putchar(int32_t ch)
   */
 void TRMclearDisplay(void)
 {
-
+	printf("\x1b[2J"); //\x1b ==> <ESC> KOMMANDO: "<ESC>[2J" löscht Displayinhalt
 }
 
 
@@ -76,7 +135,7 @@ void TRMclearDisplay(void)
   */
 void TRMsetPos (uint32_t linenr, uint32_t col)
 {
-
+	printf("\x1b[%d;%df", linenr, col);
 }
 
 /**
@@ -85,9 +144,11 @@ void TRMsetPos (uint32_t linenr, uint32_t col)
   *          If the mailbox is full the received value is rejected.
   * @retval None
   */
-void ___Terminal__IRQHandler(void)
+void UART0_IRQHandler(void)
 {
-
+	uint32_t newdata; 
+	newdata = LPC_UART0->RBR;
+	osMessagePut(STDINmsgQ, newdata, 0);
 }
 
 
@@ -97,7 +158,15 @@ void ___Terminal__IRQHandler(void)
   *          requirements of a German keyboard.
   * @retval  "received character"
   */
+
 int32_t stdin_getchar(void)
 {
-
+	//char input;
+	int32_t input;
+	osEvent inputMsg = osMessageGet(STDINmsgQ, osWaitForever);
+	
+	if(inputMsg.status == osEventMessage){
+		input = inputMsg.value.v;
+	}
+		return input;
 }

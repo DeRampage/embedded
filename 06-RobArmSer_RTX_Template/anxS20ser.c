@@ -28,14 +28,40 @@
   ******************************************************************************
   */
 #include "anxS20ser.h"
+#include "LPC17xx.h"                    // Device header
+#include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 
+#define ANZAHL 5
 /**
   * @brief  Function to initialize the servo controller-interface
   * @details UART1
   */
+osMessageQDef(anxS20MsgQ, ANZAHL, uint32_t);
+osMessageQId anxS20MsgQ;
+	
 void anxS20init(void)
 {
-    
+	anxS20MsgQ = osMessageCreate(osMessageQ(anxS20MsgQ), NULL);
+	
+	LPC_PINCON->PINSEL0 = (LPC_PINCON->PINSEL0 & ~(3u<<30))|(1<<30);
+	LPC_PINCON->PINMODE0 = LPC_PINCON->PINMODE0 & ~(3u<<30);
+	LPC_PINCON->PINMODE_OD0 &= ~(1<<15);
+	
+	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & ~3) | 1;
+	LPC_PINCON->PINMODE1 = LPC_PINCON->PINMODE1 & ~3;
+	
+	
+	LPC_UART1->LCR = 0x80;
+	LPC_UART1->DLL = 0x87;
+	LPC_UART1->DLM = 0x01;
+	LPC_UART1->FDR = 0x10;
+	LPC_UART1->LCR = 0x02;
+	LPC_UART1->FCR = 0x01;
+	LPC_UART1->IER = 0x1;
+	
+	NVIC_SetPriority(UART1_IRQn, 14);
+	NVIC_ClearPendingIRQ(UART1_IRQn);
+	NVIC_EnableIRQ(UART1_IRQn);
 }
 
 /**
@@ -43,8 +69,35 @@ void anxS20init(void)
   * @param  ch : character to send
   */
 void anxS20sendchar(uint32_t ch)
-{
-
+{	  
+  while((LPC_UART1->LSR & 0x40)){		//Wenn TEMT(Transmitter Empty) 
+		
+		if (ch == '\n') {									//Input LF?	==> Stringeingabe (Feld, etc.)
+	  while(!(LPC_UART1->LSR & 0x20))
+		{
+     osThreadYield();
+    }
+	  LPC_UART1->THR = 0x0D; 					//Output CR
+  }
+  
+	
+	if (ch == 0x0D) {									//Input CR? ==> Tastatureingeabe
+    while(!(LPC_UART1->LSR & 0x20))
+		{
+     osThreadYield();
+    }
+		LPC_UART1->THR = 0x0A; 					//Output LF
+  }
+	
+	
+	while(!(LPC_UART1->LSR & 0x20))
+	{
+   osThreadYield();
+  }
+	
+	
+  LPC_UART1->THR = ch;
+	}
 }
 
 
@@ -53,9 +106,11 @@ void anxS20sendchar(uint32_t ch)
   * @details the received character is transmitted using the mailbox.
   *          If the mailbox is full the received character is rejected.
   */
-void __anxS20__IRQHandler(void)
+void UART1_IRQHandler(void)
 {
-
+	uint32_t newdata; 
+	newdata = LPC_UART0->RBR;
+	osMessagePut(anxS20MsgQ, newdata, 0);
 }
 
 
@@ -71,7 +126,26 @@ void __anxS20__IRQHandler(void)
   */
 int32_t anxS20getAck(void)
 {
-
+	osEvent anxMsg;
+	
+	anxMsg = osMessageGet(anxS20MsgQ, 10);
+	
+	if(anxMsg.status == osEventMessage){
+		
+		if(anxMsg.value.v == 97){
+	    return 1;
+		}else{
+			return 0;
+		}
+	}
+	/* TIMEOUT ist einzige logische Alternative
+	
+	if(anxMsg.status == osEventTimeout){
+		return 0;
+	}
+	*/
+	return 0;
+	
 }
 
 
@@ -84,8 +158,23 @@ int32_t anxS20getAck(void)
   */
 uint32_t anxS20GetByte(void)
 {
+	int32_t count = 0;
+	
+	do{
+		if(anxS20getAck() == 1){
+			
+			osEvent anxMsg;
+			anxMsg = osMessageGet(anxS20MsgQ, 0);
+			
+			if(anxMsg.status == osEventMessage){
+				return anxMsg.value.v;
+			}
+			
+		}
+	}	while(count < 4);
 
-}
+	return 999;
+ }
 
 
 /**
@@ -106,7 +195,33 @@ uint32_t anxS20GetByte(void)
 int32_t anxS20setservopos(uint32_t servo, uint32_t positionus, 
                           uint32_t minlimit, uint32_t maxlimit)
 {
+	
+	
+	if(positionus > maxlimit){
+		positionus = maxlimit;
+	}
+	if(positionus < minlimit){
+		positionus = minlimit;
+	}
+	
+	int32_t transmission[] = {'a', 'x', 97, servo, positionus};
+	
+	//do{
+	
+	for (int i = 0; i < 5; i++){
+		
+		for(int j = 0; j < transmission[i]; j++){
+			anxS20sendchar(transmission[j]);
+		}
+		
+		if(anxS20getAck() == 1){
+			i = 5;	
+			return 1;
+		}
+		
+	}
 
+	return 0;
 }
 
 /**
@@ -120,7 +235,7 @@ int32_t anxS20setservopos(uint32_t servo, uint32_t positionus,
   */
 int32_t anxS20setservospeed(uint32_t servo, uint32_t speed)
 {
-    
+    return 0;
 }
 
 /**
@@ -132,5 +247,5 @@ int32_t anxS20setservospeed(uint32_t servo, uint32_t speed)
   */
 void servotimeUpdate(SrvCtr_t * armsrv_ptr, UpdateDirection direction)
 {
-
+	
 }

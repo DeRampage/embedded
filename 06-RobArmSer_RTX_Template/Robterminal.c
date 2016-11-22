@@ -25,15 +25,61 @@
   */
 #include "cmsis_os.h"             // ARM::CMSIS:RTOS:Keil RTX
 #include "max_II_configurator.h"  // ETTI4::ETTI4:Embedded laboratory:Configurator
+#include "robterminal.h"                // ETTI4::ETTI4:Embedded laboratory:Robotic arm
+#include "stdio.h"
 
+extern osSemaphoreId STDOUTsem;
+extern osSemaphoreId STDINsem;
+extern osMessageQId STDINmsgQ; //???
+
+
+//uint32_t i = 0;
+//char input[100];		//Für Debugging
 /**
   * @brief  Main thread part terminal
   */
+
 int32_t main(void)
 {
    e4configRobarm();
-
+	 TRMinit();
+	 uint32_t temp;
+   //uint32_t i = 0;
+   //char input[100];
+	 NVIC_SetPriorityGrouping(0);
+	
    for(;;)
-   {      
+   {
+		 //printf("Bitte Text eingeben:\n");
+		 
+		 //osSemaphoreWait(STDINsem, osWaitForever);
+		 
+		 putchar(temp = getchar());
+		 
+		 fflush(stdout);
+		 
+		 
+		 
+		 /*
+		 do{
+				temp = getchar();
+				input[i] = temp;
+				i++;
+		 //}while(temp != 0x0D);
+		 }while(temp != 0);
+			
+		 //input[i] = 0;
+		 input[i] = temp;
+		 input[i+1] = '\n';
+		 input[i+2] = '\r';
+		 i = 0;
+		*/
+		 //printf("Ihr Text: %s\n", &input[0]);
+			
+		 //osSemaphoreRelease(STDINsem);
+		 
+		 //osDelay(30);
+		// TRMclearDisplay();
+		 
    }
 }

@@ -35,6 +35,17 @@
 #include "anxS20ser.h"
 #include "max_II_configurator.h" // ETTI4::ETTI4:Embedded laboratory:Configurator
 
+/*
+#define SERVOCENTERTIME 
+#define SERVOSTARTMAX 
+#define SERVOSTARTMIN 
+#define SRV_BASEROT 
+#define SRV_TXT_LEFT
+#define SRV_TXT_RIGHT
+#define SRV_BASELIFT
+#define SRV_SHOULDER
+#define SRV_GRIPPLIFT
+*/
 /** @brief Variable to store servo information
   */
  SrvCtr_t arm_servo[6]= 
@@ -93,6 +104,26 @@ int32_t main(void)
   for(i=0;i<6;i++)
   { 
      // Hier den Programmcode zur Einstellung der Centerposition 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
      // und zur Einstellung der Servogeschwindigkeit einfügen
   }        
  for(;;)
