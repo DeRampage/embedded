@@ -48,16 +48,15 @@ osSemaphoreDef(MotorStatusSem);
 osThreadDef(RotSensorThread, osPriorityHigh, 1, 0);
 osThreadId RotSensorThreadID;													
 													
-
+void keyThread(void const* argument);
 //void E4keyThread(void const* argument);
-//osThreadDef(E4keyThread, osPriorityNormal, 1, 0);
-//osThreadId keyThreadID;		
 
-void keyThread(void const* argument);													
+													
 osThreadDef(keyThread, osPriorityNormal, 1, 0);
 osThreadId keyThreadID;													
 
-											
+//osThreadDef(E4keyThread, osPriorityNormal, 1, 0);
+//osThreadId keyThreadID;													
 	
 int32_t main(void)
 {    
@@ -72,11 +71,10 @@ int32_t main(void)
 	initHEXSW();
 	
 	//uint32_t temp = E4getHexSW();
-	//getHexSW();
 	uint32_t temp = getHexSW();
+	
   
 	ActMotorStatus.status = Stopped;
-	//ActMotorStatus.direction = Right;
 	ActMotorStatus.direction = Left;
 	ActMotorStatus.speedstep = temp;
 	ActMotorStatus.drehzahl = 0;
@@ -96,7 +94,7 @@ int32_t main(void)
 			   "    Experiment \n"
 				 "    Motor Test\n");
 	
-  osDelay(20);//2000
+  osDelay(2000);
 	
 	clearETTI4display(&motDisp);
 	
@@ -117,12 +115,12 @@ int32_t main(void)
 	
     for(;;)
     {
-				osDelay(2); //250
+				osDelay(250);
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				newStatus = ActMotorStatus;
 				osSemaphoreRelease(MotorStatusSem);
 			
-				//updateDisplay(&motDisp, &oldStatus, &newStatus);
-			  E4updateDisplay(&motDisp, &oldStatus, &newStatus);
+				updateDisplay(&motDisp, &oldStatus, &newStatus);
+			  //E4updateDisplay(&motDisp, &oldStatus, &newStatus);
     }
 }

@@ -40,62 +40,62 @@ void keyThread(void const *argument)
 {
 	//E4initHEXSW();
 	initHEXSW();
+	
 	//E4initMotKeysIRQ();
 	initMotKeysIRQ();
 	
-	
 	osEvent signals;
 	
-for(;;){
-	signals = osSignalWait(0, osWaitForever);
-	if(signals.status == osEventSignal){
-		
-		if(signals.value.signals == SIG_KEY_LEFT_RIGHT){
-			if(ActMotorStatus.direction == Right){
+  for(;;)
+  {
+	  
+	  signals = osSignalWait(0, osWaitForever);
+	  if(signals.status == osEventSignal){
+		  if(signals.value.signals & SIG_KEY_LEFT_RIGHT){
+			  if(ActMotorStatus.direction == Right){
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				ActMotorStatus.direction = Left;
 				osSemaphoreRelease(MotorStatusSem);
+				
 				setDirection(Left);
-			}else{
-			//if(ActMotorStatus.direction == Left){
+				  
+			  }else{
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				ActMotorStatus.direction = Right;
 				osSemaphoreRelease(MotorStatusSem);
-				setDirection(Right);
 				
-			}
-			osSignalClear(keyThreadID, SIG_KEY_LEFT_RIGHT); //Notwendig?
-		}
-		
-		if(signals.value.signals == SIG_KEY_RUNSTOP){
-			if(ActMotorStatus.status == Stopped){
+				setDirection(Right);
+			  }
+			  
+		  }
+		  if(signals.value.signals & SIG_KEY_RUNSTOP){
+			  if(ActMotorStatus.status == Stopped){
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				ActMotorStatus.status = Run;
-				osSemaphoreRelease(MotorStatusSem);
-			}else{
-			
-			//if(ActMotorStatus.status == Run){
+				osSemaphoreRelease(MotorStatusSem); 
+			  }else{
 				osSemaphoreWait(MotorStatusSem, osWaitForever);
 				ActMotorStatus.status = Stopped;
-				osSemaphoreRelease(MotorStatusSem);
-				
-			}
-			//osSignalClear(keyThreadID, SIG_KEY_RUNSTOP);
-			setRunStop(&ActMotorStatus);
-		//	NVIC_ClearPendingIRQ(EINT1_IRQn);
-		
-		}
-		
-		if(signals.value.signals == SIG_KEY_NEWHEX){
-			osSemaphoreWait(MotorStatusSem, osWaitForever);
-			ActMotorStatus.speedstep = getHexSW();
-			//ActMotorStatus.speedstep = E4getHexSW();
-			osSemaphoreRelease(MotorStatusSem);
-			updateSpeed(&ActMotorStatus);
-		}
-	}
-	
-  
+				osSemaphoreRelease(MotorStatusSem);  
+			  }
+			 
+			  
+			  setRunStop(&ActMotorStatus);
+			  
+			  
+			  
+			  
+		  }
+		  
+		  if(signals.value.signals & SIG_KEY_NEWHEX){
+			  
+				osSemaphoreWait(MotorStatusSem, osWaitForever);
+				//ActMotorStatus.speedstep = E4getHexSW();
+			    ActMotorStatus.speedstep = getHexSW();
+				osSemaphoreRelease(MotorStatusSem); 
+				updateSpeed(&ActMotorStatus);
+			  }
+	  }
 
   } // end for
 }

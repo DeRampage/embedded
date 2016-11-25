@@ -29,8 +29,9 @@ extern osThreadId keyThreadID;
   */
 void EINT1_IRQHandler(void)
 {
-	osSignalSet(keyThreadID, SIG_KEY_RUNSTOP);
 	LPC_SC->EXTINT = 0x2;
+	osSignalSet(keyThreadID, SIG_KEY_RUNSTOP);
+	
 }
 
 /**
@@ -38,8 +39,9 @@ void EINT1_IRQHandler(void)
   */
 void EINT2_IRQHandler(void)
 {
-	osSignalSet(keyThreadID, SIG_KEY_LEFT_RIGHT);
 	LPC_SC->EXTINT = 0x4;
+	osSignalSet(keyThreadID, SIG_KEY_LEFT_RIGHT);
+	
 }
 
 /**
@@ -47,11 +49,11 @@ void EINT2_IRQHandler(void)
   */
 void initMotKeysIRQ(void)
 {
-	LPC_PINCON->PINSEL4 = (LPC_PINCON->PINSEL4 & ~((3 << 22) | (3 << 24))) | ((1 << 22) | (1 << 24));
-	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 & ~((3 << 22) | (3 << 24));
-	LPC_SC->EXTMODE = LPC_SC->EXTMODE | (3 << 1);
-	LPC_SC->EXTPOLAR = (LPC_SC->EXTPOLAR & ~(3 << 1)) | (1 << 1);
-  LPC_SC->EXTINT = 0x6;
+	LPC_PINCON->PINSEL4 = (LPC_PINCON->PINSEL4 & ~ ((3 << 22) | (3 << 24))) | ((1 << 22) | (1 << 24));
+	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 & ~ ((3 << 22) | (3 << 24));
+	LPC_SC->EXTMODE = LPC_SC->EXTMODE | (3 << 1); 
+	LPC_SC->EXTPOLAR = (LPC_SC->EXTPOLAR & ~ (3 << 1)) | (1 << 1);
+	LPC_SC->EXTINT = 0x6;
 	
 	NVIC_SetPriority(EINT1_IRQn, 20);
 	NVIC_ClearPendingIRQ(EINT1_IRQn);

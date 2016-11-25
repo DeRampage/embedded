@@ -20,7 +20,7 @@
   */
 #include "drehzahl.h" // ETTI4::ETTI4:Embedded laboratory:Revolution measurement
 #include "EmbSysARMDisp.h"  // ETTI4::ETTI4:Embedded laboratory:Displays
-
+#include "stdio.h"
 /**
   * @brief  display function
   * @details The display function checks, if the content of "old" and
@@ -33,5 +33,41 @@
 void updateDisplay(ETTI4disp_t * pDisp, 
                    drehzahl_t * oldStatusPtr, drehzahl_t * newStatusPtr)
 {
-
+	if(newStatusPtr->direction != oldStatusPtr->direction){
+		
+		setPosETTI4display(pDisp, 1, 8);
+		if(newStatusPtr->direction == Right){
+			printf("Right");
+		}else{
+			printf("Left ");
+		}
+		oldStatusPtr->direction = newStatusPtr->direction;
+	}
+	
+	if(newStatusPtr->speedstep != oldStatusPtr->speedstep){
+		
+		setPosETTI4display(pDisp, 2, 12);
+		printf("%2d", newStatusPtr->speedstep);
+		
+		oldStatusPtr->speedstep = newStatusPtr->speedstep;
+	}
+	
+	if(newStatusPtr->status != oldStatusPtr->status){
+		
+		setPosETTI4display(pDisp, 1, 16);
+		if(newStatusPtr->status == Run){
+			printf("ON ");
+		}else{
+			printf("OFF");
+		}
+		oldStatusPtr->status = newStatusPtr->status;
+	}
+	
+	if(newStatusPtr->drehzahl != oldStatusPtr->drehzahl){
+		
+		setPosETTI4display(pDisp, 3, 10);
+		printf("%2d,%d", newStatusPtr->drehzahl/10, newStatusPtr->drehzahl%10 );
+		oldStatusPtr->drehzahl = newStatusPtr->drehzahl;
+	}
+	setPosETTI4display(pDisp, 0, 0);
 }

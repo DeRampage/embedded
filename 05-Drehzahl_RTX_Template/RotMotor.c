@@ -23,61 +23,54 @@
 #include "LPC17xx.h"                    // Device header
 #include "cmsis_os.h"                   // ARM::CMSIS:RTOS:Keil RTX
 
+
 #define TIMEMAX 12000
 #define TIMEMIN 8400
 #define TIMESTEP 240
 
-
 extern drehzahl_t ActMotorStatus;
+
 /**
   * @brief  Function to initialize motor control HW
   * @param  [in] StatusPtr : pointer to motor status object
   */
 void initMotor(drehzahl_t * StatusPtr)
 {
-	
-	
-	LPC_PWM1->TCR = 0; 	//Timer Stop
-	LPC_PWM1->CTCR = 0;	//Select Timer-Mode
+	LPC_PWM1->TCR = 0;
+	LPC_PWM1->CTCR = 0;
 	LPC_PWM1->PR = 0;
 	LPC_PWM1->PC = 0;
 	LPC_PWM1->TC = 0;
 	
+	LPC_PWM1->MR0 = TIMEMAX - 1; 
 	
-	LPC_PWM1->MR0 = TIMEMAX - 1;	//Period 0.2ms
-	//SEMAPHORE?
-	LPC_PWM1->MR5 = TIMEMIN + ActMotorStatus.speedstep * TIMESTEP;			//PWM Impulse
-
+	LPC_PWM1->MR5 = TIMEMIN + ActMotorStatus.speedstep * TIMESTEP;
 	
-	LPC_PWM1->MCR = 02; //OKTAL
-	LPC_PWM1->PCR = 0x2000;//(LPC_PWM1->PCR & ~(1 << 5)) | (1 << 13);
+	LPC_PWM1->MCR = 02;
 	
+	LPC_PWM1->PCR = 0x2000;
 	
-	
-	
-	LPC_PINCON->PINSEL4 = (LPC_PINCON->PINSEL4 & ~((3 << 8) | (3 << 6))) | (1 << 8);
-	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 | ((3 << 8) | (3 << 6));
+	LPC_PINCON->PINSEL4 = (LPC_PINCON->PINSEL4 & ~((3 << 8)| (3 << 6))) | (1 << 8);
+	LPC_PINCON->PINMODE4 = LPC_PINCON->PINMODE4 | ((3 << 8)| (3 << 6));
 	LPC_PINCON->PINMODE_OD2 = LPC_PINCON->PINMODE_OD2 & ~(1 << 4);
-	LPC_GPIO2->FIODIR = LPC_GPIO2->FIODIR | (1<<3);
 	
+	LPC_GPIO2->FIODIR = LPC_GPIO2->FIODIR | (1 << 3);
 	
-	////////////////////NOTWENDIG?//////////////////
-	//SEMAPHORE?
 	if(ActMotorStatus.direction == Left){
-		LPC_GPIO2->FIOSET = (1<<3);
+		LPC_GPIO2->FIOSET = (1 << 3);
 	}else{
-		LPC_GPIO2->FIOCLR = (1<<3);
+		LPC_GPIO2->FIOCLR = (1 << 3); 
 	}
-	//SEMAPHORE?
-	if(ActMotorStatus.status == Run){
-		LPC_PWM1->PCR = 0x2000;
+	
+	if(StatusPtr->status == Stopped){
+		LPC_PWM1->MR5 = 0;
+		LPC_PWM1->LER = (1 << 5);
 	}else{
-		LPC_PWM1->PCR = 0x0000;
+		LPC_PWM1->MR5 = TIMEMIN + StatusPtr->speedstep * TIMESTEP;
+		LPC_PWM1->LER = (1 << 5);
 	}
-	////////////////////NOTWENDIG?//////////////////
 	
-	
-	LPC_PWM1->TCR = 9; //Timer Start
+	LPC_PWM1->TCR = 9;	
 }
 
 /**
@@ -87,9 +80,9 @@ void initMotor(drehzahl_t * StatusPtr)
 void setDirection(direction_t direction)
 {
 	if(direction == Left){
-		LPC_GPIO2->FIOSET = (1<<3);
+		LPC_GPIO2->FIOSET = (1 << 3);
 	}else{
-		LPC_GPIO2->FIOCLR = (1<<3);
+		LPC_GPIO2->FIOCLR = (1 << 3);
 	}
 }
 
@@ -101,12 +94,19 @@ void setDirection(direction_t direction)
   */
 void setRunStop(drehzahl_t * StatusPtr)
 {
+	/*
 	if(StatusPtr->status == Run){
-		//LPC_PWM1->TCR = 9;
 		LPC_PWM1->PCR = 0x2000;
 	}else{
-		//LPC_PWM1->TCR = 9;
 		LPC_PWM1->PCR = 0x0000;
+	}
+	*/
+	if(StatusPtr->status == Stopped){
+		LPC_PWM1->MR5 = 0;
+		LPC_PWM1->LER = (1 << 5);
+	}else{
+		LPC_PWM1->MR5 = TIMEMIN + StatusPtr->speedstep * TIMESTEP;
+		LPC_PWM1->LER = (1 << 5);
 	}
 }
 
@@ -117,6 +117,8 @@ void setRunStop(drehzahl_t * StatusPtr)
   */
 void updateSpeed(drehzahl_t * StatusPtr)
 {
-  LPC_PWM1->MR5 = TIMEMIN + StatusPtr->speedstep * TIMESTEP;
-	LPC_PWM1->LER = (1 << 5);
+	if(StatusPtr->status == Run){
+	  LPC_PWM1->MR5 = TIMEMIN + StatusPtr->speedstep * TIMESTEP;
+	  LPC_PWM1->LER = (1 << 5);
+	}
 }

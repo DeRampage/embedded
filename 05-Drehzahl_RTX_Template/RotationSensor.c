@@ -117,8 +117,8 @@ void RotSensorThread(void const *argument)
 		 }*/
 		 if(incoming.status == osEventTimeout){
 			 osSemaphoreWait(MotorStatusSem, osWaitForever);
-		ActMotorStatus.drehzahl = 0;
-		osSemaphoreRelease(MotorStatusSem);
+			 ActMotorStatus.drehzahl = 0;
+			 osSemaphoreRelease(MotorStatusSem);
 		 }
    }
 }
