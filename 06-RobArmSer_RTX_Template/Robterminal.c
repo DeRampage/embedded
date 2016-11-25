@@ -30,56 +30,30 @@
 
 extern osSemaphoreId STDOUTsem;
 extern osSemaphoreId STDINsem;
-extern osMessageQId STDINmsgQ; //???
-
-
-//uint32_t i = 0;
-//char input[100];		//Für Debugging
+extern osMessageQId STDINmsgQ;
 /**
   * @brief  Main thread part terminal
   */
-
 int32_t main(void)
 {
    e4configRobarm();
-	 TRMinit();
-	 uint32_t temp;
-   //uint32_t i = 0;
-   //char input[100];
-	 NVIC_SetPriorityGrouping(0);
+	TRMinit();
 	
+	uint32_t temp;
+	NVIC_SetPriorityGrouping(0);
+
    for(;;)
    {
-		 //printf("Bitte Text eingeben:\n");
-		 
-		 //osSemaphoreWait(STDINsem, osWaitForever);
-		 
-		 putchar(temp = getchar());
-		 
-		 fflush(stdout);
-		 
-		 
-		 
-		 /*
-		 do{
-				temp = getchar();
-				input[i] = temp;
-				i++;
-		 //}while(temp != 0x0D);
-		 }while(temp != 0);
-			
-		 //input[i] = 0;
-		 input[i] = temp;
-		 input[i+1] = '\n';
-		 input[i+2] = '\r';
-		 i = 0;
-		*/
-		 //printf("Ihr Text: %s\n", &input[0]);
-			
-		 //osSemaphoreRelease(STDINsem);
-		 
-		 //osDelay(30);
-		// TRMclearDisplay();
-		 
+	   putchar(temp = getchar());
+	   fflush(stdout);
+	   
+	   osDelay(10000);
+	   
+	   char dwahnsinn[] = {"kraaaaassss"};
+	   for(int i = 0; i < 25; i++){
+		   TRMsetPos(1+i, 1+i);
+		   printf("%s", dwahnsinn);
+	   }
+	   
    }
 }
