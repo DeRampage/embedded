@@ -71,9 +71,7 @@ void anxS20init(void)
   */
 void anxS20sendchar(uint32_t ch)
 {	  
-  while((LPC_UART1->LSR & 0x40));
- /*
-  {		//Wenn TEMT(Transmitter Empty) 
+ // while((LPC_UART1->LSR & 0x60)){		//Wenn TEMT(Transmitter Empty) 
 		
 		if (ch == '\n') {									//Input LF?	==> Stringeingabe (Feld, etc.)
 	  while(!(LPC_UART1->LSR & 0x20))
@@ -97,7 +95,7 @@ void anxS20sendchar(uint32_t ch)
 	{
    osThreadYield();
   }
-	*/
+	
 	
   LPC_UART1->THR = ch;
 	//}
@@ -173,7 +171,7 @@ uint32_t anxS20GetByte(void)
 	
 	for (int i = 0; i < 4; i++){
 		
-		for(int j = 0; j < 4; j++){ //ggf i < 5 // transmission[j]
+		for(int j = 0; j < transmission[j]; j++){ //ggf i < 5 // transmission[j]
 			anxS20sendchar(transmission[j]);
 		}
 		//fflush(stdout);
@@ -181,7 +179,7 @@ uint32_t anxS20GetByte(void)
 		if(anxS20getAck() == 1){
 			
 			osEvent anxMsg;
-			anxMsg = osMessageGet(anxS20MsgQ, osWaitForever);
+			anxMsg = osMessageGet(anxS20MsgQ, 0);
 			
 			if(anxMsg.status == osEventMessage){
 				return anxMsg.value.v;
