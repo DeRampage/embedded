@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Simulator\obj\RobArmRTX.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Simulator\obj\RobArmRTX.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Nov 22 15:24:30 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Sun Nov 27 15:12:41 2016
 <BR><P>
 <H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -80,7 +80,7 @@ Function Pointers
  <LI><a href="#[4b]">__main</a> from __main.o(!!!main) referenced from startup_lpc17xx.o(.text)
  <LI><a href="#[3d]">_fputc$unlocked</a> from fputc.o(i.fputc) referenced from _printf_char_file_locked.o(.text)
  <LI><a href="#[3c]">_printf_input_char</a> from _printf_char_common.o(.text) referenced from _printf_char_common.o(.text)
- <LI><a href="#[4a]">main</a> from robarmsermain.o(.text) referenced from rtx_conf_cm.o(.data)
+ <LI><a href="#[4a]">main</a> from robarmsermain.o(.text) referenced from rtx_conf_cm.o(.constdata)
  <LI><a href="#[49]">osThreadExit</a> from rt_cmsis.o(i.osThreadExit) referenced from rt_cmsis.o(i.svcThreadCreate)
  <LI><a href="#[48]">os_idle_demon</a> from rtx_conf_cm.o(.text) referenced from rt_task.o(i.rt_sys_init)
  <LI><a href="#[36]">rt_alloc_box</a> from rt_membox.o(i.rt_alloc_box) referenced from hal_cm3.o(.emb_text)
@@ -368,9 +368,9 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> rtx_conf_cm.o(.data)
+<BR>[Address Reference Count : 1]<UL><LI> rtx_conf_cm.o(.constdata)
 </UL>
-<P><STRONG><a name="[75]"></a>TRMinit</STRONG> (Thumb, 180 bytes, Stack size 8 bytes, terminal.o(.text))
+<P><STRONG><a name="[75]"></a>TRMinit</STRONG> (Thumb, 196 bytes, Stack size 8 bytes, terminal.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = TRMinit &rArr; osSemaphoreCreate &rArr; svcSemaphoreCreate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreCreate
@@ -418,7 +418,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_read
 </UL>
 
-<P><STRONG><a name="[76]"></a>anxS20init</STRONG> (Thumb, 172 bytes, Stack size 8 bytes, anxs20ser.o(.text))
+<P><STRONG><a name="[76]"></a>anxS20init</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, anxs20ser.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = anxS20init &rArr; osMessageCreate &rArr; svcMessageCreate
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageCreate
@@ -426,12 +426,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[84]"></a>anxS20sendchar</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, anxs20ser.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = anxS20sendchar
-</UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
-</UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20setservospeed
+<P><STRONG><a name="[85]"></a>anxS20sendchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, anxs20ser.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20setservospeed
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20setservopos
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20GetByte
 </UL>
@@ -443,7 +439,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[85]"></a>anxS20getAck</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, anxs20ser.o(.text))
+<P><STRONG><a name="[84]"></a>anxS20getAck</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, anxs20ser.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = anxS20getAck &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
@@ -453,29 +449,29 @@ Global Symbols
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20GetByte
 </UL>
 
-<P><STRONG><a name="[78]"></a>anxS20GetByte</STRONG> (Thumb, 102 bytes, Stack size 48 bytes, anxs20ser.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = anxS20GetByte &rArr; anxS20getAck &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
+<P><STRONG><a name="[78]"></a>anxS20GetByte</STRONG> (Thumb, 96 bytes, Stack size 40 bytes, anxs20ser.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = anxS20GetByte &rArr; anxS20getAck &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageGet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[86]"></a>anxS20setservopos</STRONG> (Thumb, 118 bytes, Stack size 64 bytes, anxs20ser.o(.text))
+<P><STRONG><a name="[86]"></a>anxS20setservopos</STRONG> (Thumb, 120 bytes, Stack size 64 bytes, anxs20ser.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = anxS20setservopos &rArr; anxS20getAck &rArr; osMessageGet &rArr; isrMessageGet &rArr; isr_mbx_receive &rArr; rt_psq_enq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servotimeUpdate
 </UL>
 
-<P><STRONG><a name="[88]"></a>anxS20setservospeed</STRONG> (Thumb, 78 bytes, Stack size 48 bytes, anxs20ser.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
+<P><STRONG><a name="[88]"></a>anxS20setservospeed</STRONG> (Thumb, 74 bytes, Stack size 40 bytes, anxs20ser.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 
@@ -1329,7 +1325,7 @@ Global Symbols
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sysTimerTick
 </UL>
 
-<P><STRONG><a name="[c8]"></a>isr_mbx_receive</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, rt_mailbox.o(i.isr_mbx_receive))
+<P><STRONG><a name="[c8]"></a>isr_mbx_receive</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, rt_mailbox.o(i.isr_mbx_receive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = isr_mbx_receive &rArr; rt_psq_enq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_psq_enq
@@ -1375,7 +1371,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessageGet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
+<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20getAck
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdin_getchar
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20GetByte
 </UL>
@@ -1409,8 +1405,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> rt_cmsis.o(i.svcThreadCreate)
 </UL>
 <P><STRONG><a name="[80]"></a>osThreadYield</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osThreadYield))
-<BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anxS20sendchar
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
+<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stdout_putchar
 </UL>
 
 <P><STRONG><a name="[e9]"></a>os_tick_init</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, rt_system.o(i.os_tick_init))
